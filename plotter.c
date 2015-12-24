@@ -740,9 +740,11 @@ int main(int argc, char **argv) {
 					case 1:
 					case 10:
 						MoveLength *= 10;
+						break;
 					case 100:
 					default:
 						MoveLength = 1;
+						break;
 
 				}
 				PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
