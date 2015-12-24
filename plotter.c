@@ -250,7 +250,7 @@ char *PrintMenu_File(int StartRow, int selected) {
 		sprintf(TextLine, "Could not open directory '%s'!", OpenDirName);
 		MessageText(TextLine, 1, 4, 1);
 		getch();
-		return ("");
+		return ("noFiLE");
 	}
 
 	pDirEnt = readdir(pDIR);
@@ -667,7 +667,7 @@ int main(int argc, char **argv) {
 
 
 	while (1) {
-		clrscr(MessageY, MaxRows);
+		clrscr(MessageY, MaxRows - 1);
 		MessageText("Waiting for key press.", MessageX, MessageY, 0);
 
 		i = 0;
@@ -761,7 +761,6 @@ int main(int argc, char **argv) {
 
 			// Plot Key Hits
 			if (KeyHit == 'p') {
-				MessageText(KRED "> 3 seconds until plotting starts ." KRESET, 1, 27, 0);
 
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if ((PlotFile = fopen(FullFileName, "rb")) == NULL) {
@@ -769,9 +768,9 @@ int main(int argc, char **argv) {
 						strcpy(FileName, "noFiLE");
 						ErrorText(TextLine);
 					}
-					continue;
 				}
 
+				MessageText(KRED "> 3 seconds until plotting starts ." KRESET, 1, 27, 0);
 				sleep(1);
 				MessageText(KRED "> 2 seconds until plotting starts .." KRESET, 1, 27, 0);
 				sleep(1);
@@ -1026,6 +1025,7 @@ int main(int argc, char **argv) {
 		if (MenuLevel == MENU_FILE) {//Select file
 
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 66 && KeyCode[3] == 0 && KeyCode[4] == 0) {
+
 				FileSelected++;
 				strcpy(FileName, PrintMenu_File(FileStartRow, FileSelected));
 			}
