@@ -23,6 +23,7 @@
 #include <math.h>
 #include <wiringPi.h>
 #include <unistd.h>
+#include "plotter.h"
 
 int MaxRows = 24;
 int MaxCols = 80;
