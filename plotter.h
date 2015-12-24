@@ -26,6 +26,28 @@
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
 
+#define BRED  "\x1B[1;31m"
+#define BGRN  "\x1B[1;32m"
+#define BYEL  "\x1B[1;33m"
+#define BBLU  "\x1B[1;34m"
+#define BMAG  "\x1B[1;35m"
+#define BCYN  "\x1B[1;36m"
+#define BWHT  "\x1B[1;37m"
+
+#define URED  "\x1B[4;31m"
+#define UGRN  "\x1B[4;32m"
+#define UYEL  "\x1B[4;33m"
+#define UBLU  "\x1B[4;34m"
+#define UMAG  "\x1B[4;35m"
+#define UCYN  "\x1B[4;36m"
+#define UWHT  "\x1B[4;37m"
+
+/* ---- Menu Level Constants -----------------------------------------------------------------------------------------------*/
+
+#define MENU_MAIN 0
+#define MENU_FILE 1
+#define MENU_PLOTTER 2
+
 /* ---- Axis Constants -----------------------------------------------------------------------------------------------*/
 
 

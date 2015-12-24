@@ -170,27 +170,27 @@ void ErrorText(char *message) {
 }
 //----------------------------- ErrorText ---------------------------
 
-//+++++++++++++++++++++++++ PrintMenue_01 ++++++++++++++++++++++++++++++
-void PrintMenue_01(char *PlotFile, double scale, double width, double height, long MoveLength, int plotterMode) {
+//+++++++++++++++++++++++++ PrintMenu_Main ++++++++++++++++++++++++++++++
+void PrintMenu_Main(char *PlotFile, double scale, double width, double height, long MoveLength, int plotterMode) {
 	char TextLine[300];
 
 	clrscr(1, MessageY - 2);
-	MessageText("*** Main menu plotter ***", 1, 1, 1);
-	sprintf(TextLine, "M            - toggle move length, current value = %ld step(s)", MoveLength);
+	MessageText(UWHT "-- Main Menu --" KRESET, 1, 1, 1);
+	sprintf(TextLine, "M            - Toggle move length, current value = %ld step(s)", MoveLength);
 	MessageText(TextLine, 10, 3, 0);
-	MessageText("Cursor right - move plotter in positive X direction", 10, 4, 0);
-	MessageText("Cursor left  - move plotter in negative X direction", 10, 5, 0);
-	MessageText("Cursor up    - move plotter in positive Y direction", 10, 6, 0);
-	MessageText("Cursor down  - move plotter in negative Y direction", 10, 7, 0);
-	MessageText("Page up      - lift pen", 10, 8, 0);
-	MessageText("Page down    - touch down pen", 10, 9, 0);
-	sprintf(TextLine, "F            - choose file. Current file = \"%s\"", PlotFile);
+	MessageText("<Up>         - Move plotter in Y+ direction", 10, 4, 0);
+	MessageText("<Down>       - Move plotter in Y- direction", 10, 5, 0);
+	MessageText("<Left>       - Move plotter in X- direction", 10, 6, 0);
+	MessageText("<Right>      - Move plotter in X+ direction", 10, 7, 0);
+	MessageText("U / <PgUp>   - Lift pen", 10, 8, 0);
+	MessageText("D / <PgDn>   - Lower pen", 10, 9, 0);
+	sprintf(TextLine, "F            - Choose Print file. Current file = \"%s\"", PlotFile);
 	MessageText(TextLine, 10, 10, 0);
-	MessageText("0            - move plotter to 0/0", 10, 11, 0);
+	MessageText("0            - Move plotter to (0,0)", 10, 11, 0);
 	sprintf(TextLine, "               Scale set to = %0.4f. W = %0.2fcm, H = %0.2fcm", scale,
 	        width * scale / 10.0 / StepsPermmX, height * scale / 10.0 / StepsPermmX);
 	MessageText(TextLine, 10, 12, 0);
-	MessageText("P            - plot file", 10, 13, 0);
+	MessageText("P            - Plot file", 10, 13, 0);
 	if (plotterMode == 0) {
 		MessageText("               Operating mode: PRINTING", 10, 14, 0);
 	}
@@ -198,13 +198,15 @@ void PrintMenue_01(char *PlotFile, double scale, double width, double height, lo
 		MessageText("               Operating mode: PLOTTING", 10, 14, 0);
 	}
 
-	MessageText("Esc          - leave program", 10, 16, 0);
+	MessageText("Esc          - Exit program", 10, 16, 0);
+
+	// TODO : Status variables -- file, position, etc
 
 }
-//------------------------- PrintMenue_01 ------------------------------
+//------------------------- PrintMenu_Main ------------------------------
 
-//+++++++++++++++++++++++++ PrintMenue_02 ++++++++++++++++++++++++++++++
-char *PrintMenue_02(int StartRow, int selected) {
+//+++++++++++++++++++++++++ PrintMenu_File ++++++++++++++++++++++++++++++
+char *PrintMenu_File(int StartRow, int selected) {
 	char TextLine[300];
 	char FilePattern[5];
 	char OpenDirName[1000];
@@ -215,7 +217,7 @@ char *PrintMenue_02(int StartRow, int selected) {
 	int Discard = 0;
 
 	clrscr(1, MessageY - 2);
-	MessageText("*** Choose plotter file ***", 1, 1, 1);
+	MessageText(UWHT "-- Open File --" KRESET, 1, 1, 1);
 
 	strcpy(OpenDirName, PicturePath);
 
@@ -257,11 +259,11 @@ char *PrintMenue_02(int StartRow, int selected) {
 
 	return (FileName);
 }
-//------------------------- PrintMenue_02 ------------------------------
+//------------------------- PrintMenu_File ------------------------------
 
-//+++++++++++++++++++++++++ PrintMenue_03 ++++++++++++++++++++++++++++++
-void PrintMenue_03(char *FullFileName, long NumberOfLines, long CurrentLine, long CurrentX, long CurrentY,
-                   long StartTime) {
+//+++++++++++++++++++++++++ PrintMenu_Plot ++++++++++++++++++++++++++++++
+void PrintMenu_Plot(char *FullFileName, long NumberOfLines, long CurrentLine, long CurrentX, long CurrentY,
+                    long StartTime) {
 	char TextLine[300];
 	long CurrentTime, ProcessHours = 0, ProcessMinutes = 0, ProcessSeconds = 0;
 
@@ -280,7 +282,7 @@ void PrintMenue_03(char *FullFileName, long NumberOfLines, long CurrentLine, lon
 	ProcessSeconds = CurrentTime;
 
 	clrscr(1, MessageY - 2);
-	MessageText("*** Plotting file ***", 1, 1, 1);
+	MessageText(UWHT "-- Plotting --" KRESET, 1, 1, 1);
 
 	sprintf(TextLine, "File name: %s", FullFileName);
 	MessageText(TextLine, 10, 3, 0);
@@ -293,7 +295,7 @@ void PrintMenue_03(char *FullFileName, long NumberOfLines, long CurrentLine, lon
 
 
 }
-//------------------------- PrintMenue_03 ------------------------------
+//------------------------- PrintMenu_Plot ------------------------------
 
 //++++++++++++++++++++++++++++++ MakeStepX ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void MakeStepX(int direction, long stepPause) {
@@ -463,7 +465,7 @@ int CalculatePlotter(long moveX, long moveY, long stepPause) {
 					moveY++;
 				}
 			}
-			//move remaining X koordinates
+			//move remaining X coordinates
 			if (moveX > 0) {
 				for (i = 0; i < moveX; i++) {
 					MakeStepX(1, stepPause);
@@ -525,7 +527,7 @@ int CalculatePlotter(long moveX, long moveY, long stepPause) {
 
 int main(int argc, char **argv) {
 
-	int MenueLevel = 0;
+	int MenuLevel = MENU_MAIN;
 	int KeyHit = 0;
 	int KeyCode[5];
 	char FileInfo[3];
@@ -639,7 +641,7 @@ int main(int argc, char **argv) {
 
 	clrscr(1, MaxRows);
 	PrintRow('-', MessageY - 1);
-	PrintMenue_01(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
+	PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
 
 
 	while (1) {
@@ -668,7 +670,7 @@ int main(int argc, char **argv) {
 			KeyHit = 0;
 		}
 
-		if (MenueLevel == 0) {
+		if (MenuLevel == MENU_MAIN) {
 
 			// Move X-axis -
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 68 && KeyCode[3] == 0 && KeyCode[4] == 0) {
@@ -715,7 +717,7 @@ int main(int argc, char **argv) {
 				else {
 					MoveLength = 1;
 				}
-				PrintMenue_01(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
+				PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
 			}
 
 			// File Key Hit
@@ -723,19 +725,14 @@ int main(int argc, char **argv) {
 				FileStartRow = 0;
 				FileSelected = 0;
 				strcpy(FileNameOld, FileName);
-				strcpy(FileName, PrintMenue_02(FileStartRow, 0));
-				MenueLevel = 1;
+				strcpy(FileName, PrintMenu_File(FileStartRow, 0));
+				MenuLevel = MENU_FILE;
 			}
 
 			// Plot Key Hits
 			if (KeyHit == 'p') {
 				MessageText(KRED "> 3 seconds until plotting starts ." KRESET, 1, 20, 0);
-				sleep(1);
-				MessageText(KRED "> 2 seconds until plotting starts .." KRESET, 1, 20, 0);
-				sleep(1);
-				MessageText(KRED "> 1 seconds until plotting starts ..." KRESET, 1, 20, 0);
-				sleep(1);
-				MessageText(KGRN "> Plotting ..." KRESET, 1, 20, 0);
+
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if ((PlotFile = fopen(FullFileName, "rb")) == NULL) {
 						sprintf(TextLine, "Can't open file '%s'!\n", FullFileName);
@@ -743,6 +740,14 @@ int main(int argc, char **argv) {
 						ErrorText(TextLine);
 					}
 				}
+
+				sleep(1);
+				MessageText(KRED "> 2 seconds until plotting starts .." KRESET, 1, 20, 0);
+				sleep(1);
+				MessageText(KRED "> 1 seconds until plotting starts ..." KRESET, 1, 20, 0);
+				sleep(1);
+				MessageText(KGRN "> Plotting ..." KRESET, 1, 20, 0);
+
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if (plotterMode == 1) {//Plot file
 						xNow1 = -1;
@@ -752,7 +757,7 @@ int main(int argc, char **argv) {
 						currentPlotX = 0;
 						currentPlotY = 0;
 						PlotStartTime = time(0);
-						PrintMenue_03(FullFileName, coordinateCount, 0, 0, 0, PlotStartTime);
+						PrintMenu_Plot(FullFileName, coordinateCount, 0, 0, 0, PlotStartTime);
 						coordinatePlot = 0;
 						stopPlot = 0;
 						if (currentPlotDown == 1) {
@@ -858,7 +863,7 @@ int main(int argc, char **argv) {
 							softPwmWrite(Z_SERVO, 0);
 							currentPlotDown = 0;
 						}
-						PrintMenue_03(FullFileName, coordinateCount, coordinatePlot, 0, 0, PlotStartTime);
+						PrintMenu_Plot(FullFileName, coordinateCount, coordinatePlot, 0, 0, PlotStartTime);
 						CalculatePlotter(-currentPlotX, -currentPlotY, stepPause);
 						currentPlotX = 0;
 						currentPlotY = 0;
@@ -867,7 +872,7 @@ int main(int argc, char **argv) {
 						}
 						MessageText("Finished! Press any key to return to main menu.", MessageX, MessageY, 0);
 						getch();
-						PrintMenue_01(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
+						PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
 					}//if(plotterMode == 1){
 
 
@@ -988,24 +993,24 @@ int main(int argc, char **argv) {
 
 
 
-		}//if(MenueLevel == 0){
+		}//if(MenuLevel == MENU_MAIN){
 
-		if (MenueLevel == 1) {//Select file
+		if (MenuLevel == MENU_FILE) {//Select file
 
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 66 && KeyCode[3] == 0 && KeyCode[4] == 0) {
 				FileSelected++;
-				strcpy(FileName, PrintMenue_02(FileStartRow, FileSelected));
+				strcpy(FileName, PrintMenu_File(FileStartRow, FileSelected));
 			}
 
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 65 && KeyCode[3] == 0 && KeyCode[4] == 0) {
 				if (FileSelected > 0) {
 					FileSelected--;
-					strcpy(FileName, PrintMenue_02(FileStartRow, FileSelected));
+					strcpy(FileName, PrintMenu_File(FileStartRow, FileSelected));
 				}
 			}
 
 			if (KeyHit == 10) {//Read file and store values
-				MenueLevel = 0;
+				MenuLevel = MENU_MAIN;
 				clrscr(MessageY + 1, MessageY + 1);
 				strcpy(FullFileName, PicturePath);
 				strcat(FullFileName, "/");
@@ -1156,14 +1161,14 @@ int main(int argc, char **argv) {
 				}
 				//PicWidth = (double)(xMax - xMin) * Scale;
 				//PicHeight = (double)(yMax - yMin) * Scale;
-				PrintMenue_01(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
+				PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
 			}//if(KeyHit == 10){
 
-		}//if(MenueLevel == 1){
+		}//if(MenuLevel == MENU_FILE){
 
 
 		if (KeyHit == 27) {
-			if (MenueLevel == 0) {
+			if (MenuLevel == MENU_MAIN) {
 				clrscr(MessageY + 1, MessageY + 1);
 				MessageText("Exit program (y/n)?", MessageX, MessageY + 1, 0);
 				while (KeyHit != 'y' && KeyHit != 'n') {
@@ -1184,10 +1189,10 @@ int main(int argc, char **argv) {
 					}
 				}
 			}
-			if (MenueLevel == 1) {
-				MenueLevel = 0;
+			if (MenuLevel == MENU_FILE) {
+				MenuLevel = MENU_MAIN;
 				strcpy(FileName, FileNameOld);
-				PrintMenue_01(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
+				PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
 			}
 			clrscr(MessageY + 1, MessageY + 1);
 		}
