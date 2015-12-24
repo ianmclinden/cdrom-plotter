@@ -656,8 +656,8 @@ int main(int argc, char **argv) {
 		printf("Can't get size of terminal window");
 	}
 	else {
-		MaxRows = (terminal.ws_row > 24) ? 24 : terminal.ws_row;
-		MaxCols = (terminal.ws_col > 80) ? 80 : terminal.ws_row;
+		MaxRows = terminal.ws_row;
+		MaxCols = terminal.ws_col;
 		MessageY = MaxRows - 3;
 	}
 
