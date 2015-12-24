@@ -193,7 +193,7 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 	// Plotter Status
 	MessageText("##################################################################", 1, 16, 1);
 	MessageText("#                         Plotter Status                         #", 1, 17, 1);
-	sprintf(TextLine, "File            = \"%s\"", PlotFile);
+	sprintf(TextLine, UWHT "File = \"%s\"" KRESET, PlotFile);
 	MessageText(TextLine, 16, 19, 0);
 	sprintf(TextLine, "Scale       = %0.4f", scale);
 	MessageText(TextLine, 20, 20, 0);
@@ -201,8 +201,8 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 	MessageText(TextLine, 20, 21, 0);
 	sprintf(TextLine, "Height      = %0.2fcm", (height * scale / 10.0 / StepsPermmX));
 	MessageText(TextLine, 20, 22, 0);
-	if (plotterMode == MODE_PLOT) sprintf(TextLine, "File Mode  = " BRED "PLOTTING" KRESET);
-	if (plotterMode == MODE_PRINT) sprintf(TextLine, "File Mode  = " BBLU "PRINTING" KRESET);
+	if (plotterMode == MODE_PLOT) sprintf(TextLine, "File Mode   = " BRED "PLOT " KRESET "(Vector)");
+	if (plotterMode == MODE_PRINT) sprintf(TextLine, "File Mode   = " BRED "PRINT " KRESET "(Raster)");
 	MessageText(TextLine, 20, 23, 0);
 	MessageText("#                                                                #", 1, 24, 1);
 	MessageText("##################################################################", 1, 25, 1);
