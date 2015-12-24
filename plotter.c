@@ -670,25 +670,27 @@ int main(int argc, char **argv) {
 
 		if (MenueLevel == 0) {
 
-			//Move X-axis
+			// Move X-axis -
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 68 && KeyCode[3] == 0 && KeyCode[4] == 0) {
 				CalculatePlotter(-MoveLength, 0, stepPause);
 			}
 
+			// Move X-axis +
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 67 && KeyCode[3] == 0 && KeyCode[4] == 0) {
 				CalculatePlotter(MoveLength, 0, stepPause);
 			}
 
-			//Move Y-axis
-			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 65 && KeyCode[3] == 0 && KeyCode[4] == 0) {
-				CalculatePlotter(0, MoveLength, stepPause);
-			}
-
+			// Move Y-axis -
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 66 && KeyCode[3] == 0 && KeyCode[4] == 0) {
 				CalculatePlotter(0, -MoveLength, stepPause);
 			}
 
-			//Pen UP/DOWN
+			//Move Y-axis +
+			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 65 && KeyCode[3] == 0 && KeyCode[4] == 0) {
+				CalculatePlotter(0, MoveLength, stepPause);
+			}
+
+			// Move Pen UP
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 53 && KeyCode[3] == 126 && KeyCode[4] == 0) {
 				softPwmWrite(Z_SERVO, SERVOUP);
 				usleep(500000);
@@ -696,6 +698,7 @@ int main(int argc, char **argv) {
 				currentPlotDown = 1;
 			}
 
+			// Move Pen Down
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 54 && KeyCode[3] == 126 && KeyCode[4] == 0) {
 				softPwmWrite(Z_SERVO, SERVODOWN);
 				usleep(500000);
@@ -704,6 +707,7 @@ int main(int argc, char **argv) {
 			}
 
 
+			// Move Key Hit
 			if (KeyHit == 'm') {
 				if (MoveLength == 1) {
 					MoveLength = 10;
@@ -714,6 +718,7 @@ int main(int argc, char **argv) {
 				PrintMenue_01(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
 			}
 
+			// File Key Hit
 			if (KeyHit == 'f') {
 				FileStartRow = 0;
 				FileSelected = 0;
@@ -722,10 +727,15 @@ int main(int argc, char **argv) {
 				MenueLevel = 1;
 			}
 
-
-			if (KeyHit == 'p') {//Plot file
-				MessageText("3 seconds until plotting starts !!!!!!!!!!!!!!!!!", 1, 20, 0);
-				sleep(3);
+			// Plot Key Hits
+			if (KeyHit == 'p') {
+				MessageText("!! 3 seconds until plotting starts .", 1, 20, 0);
+				sleep(1);
+				MessageText("!! 2 seconds until plotting starts ..", 1, 20, 0);
+				sleep(1);
+				MessageText("!! 1 seconds until plotting starts ...", 1, 20, 0);
+				sleep(1);
+				MessageText("!! Plotting ...", 1, 20, 0);
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if ((PlotFile = fopen(FullFileName, "rb")) == NULL) {
 						sprintf(TextLine, "Can't open file '%s'!\n", FullFileName);
