@@ -192,14 +192,14 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 
 	// Plotter Status
 	MessageText("##################################################################", 1, 16, 1);
-	MessageText("#" BWHT "                      Plotter Information:                     " KRESET "#", 1, 17, 1);
+	MessageText("#                       Plotter Information:                     #", 1, 17, 1);
 
 	if (strncmp(PlotFile, "noFiLE", strlen(PlotFile)) == 0) {
 		MessageText(BRED "No File Loaded" KRESET, 16, 19, 0);
 		MessageText(KRED "Cannot Display file information..." KRESET, 20, 20, 0);
-		MessageText(BRED "No File Loaded" KRESET, 16, 21, 0);
-		MessageText(BRED "No File Loaded" KRESET, 16, 22, 0);
-		MessageText(BRED "No File Loaded" KRESET, 16, 23, 0);
+		MessageText("", 16, 21, 0);
+		MessageText("", 16, 22, 0);
+		MessageText("", 16, 23, 0);
 	} else {
 		sprintf(TextLine, UWHT "File = \"%s\"" KRESET, PlotFile);
 		MessageText(TextLine, 16, 19, 0);
@@ -749,7 +749,7 @@ int main(int argc, char **argv) {
 
 			// Plot Key Hits
 			if (KeyHit == 'p') {
-				MessageText(KRED "> 3 seconds until plotting starts ." KRESET, 1, 20, 0);
+				MessageText(KRED "> 3 seconds until plotting starts ." KRESET, 1, 27, 0);
 
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if ((PlotFile = fopen(FullFileName, "rb")) == NULL) {
@@ -760,11 +760,11 @@ int main(int argc, char **argv) {
 				}
 
 				sleep(1);
-				MessageText(KRED "> 2 seconds until plotting starts .." KRESET, 1, 20, 0);
+				MessageText(KRED "> 2 seconds until plotting starts .." KRESET, 1, 27, 0);
 				sleep(1);
-				MessageText(KRED "> 1 seconds until plotting starts ..." KRESET, 1, 20, 0);
+				MessageText(KRED "> 1 seconds until plotting starts ..." KRESET, 1, 27, 0);
 				sleep(1);
-				MessageText(KGRN "> Plotting ..." KRESET, 1, 20, 0);
+				MessageText(KGRN "> Plotting ..." KRESET, 1, 27, 0);
 
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if (plotterMode == 1) {//Plot file
