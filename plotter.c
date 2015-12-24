@@ -182,25 +182,33 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 	MessageText("<Down>       - Move plotter in Y- direction", 10, 5, 0);
 	MessageText("<Left>       - Move plotter in X- direction", 10, 6, 0);
 	MessageText("<Right>      - Move plotter in X+ direction", 10, 7, 0);
-	MessageText("U / <PgUp>   - Lift pen", 10, 8, 0);
-	MessageText("D / <PgDn>   - Lower pen", 10, 9, 0);
-	sprintf(TextLine, "F            - Choose Print file. Current file = \"%s\"", PlotFile);
-	MessageText(TextLine, 10, 10, 0);
+	MessageText("<PgUp> / U   - Lift pen", 10, 8, 0);
+	MessageText("<PgDn> / D   - Lower pen", 10, 9, 0);
+	MessageText("F            - Choose Print file", 10, 10, 0);
 	MessageText("0            - Move plotter to (0,0)", 10, 11, 0);
-	sprintf(TextLine, "               Scale set to = %0.4f. W = %0.2fcm, H = %0.2fcm", scale,
-	        width * scale / 10.0 / StepsPermmX, height * scale / 10.0 / StepsPermmX);
-	MessageText(TextLine, 10, 12, 0);
-	MessageText("P            - Plot file", 10, 13, 0);
-	if (plotterMode == 0) {
-		MessageText("               Operating mode: PRINTING", 10, 14, 0);
-	}
-	if (plotterMode == 1) {
-		MessageText("               Operating mode: PLOTTING", 10, 14, 0);
-	}
+	MessageText("P            - Print/Plot file", 10, 12, 0);
 
-	MessageText("Esc          - Exit program", 10, 16, 0);
+	MessageText("Esc          - Exit program", 10, 14, 0);
 
-	// TODO : Status variables -- file, position, etc
+	// Plotter Status
+	MessageText("##################################################################", 1, 16, 1);
+	MessageText("#" BWHT "                         Plotter Status                        " KRESET "#", 1, 17, 1);
+	sprintf(TextLine, "File            = \"%s\"", PlotFile);
+	MessageText(TextLine, 16, 18, 0);
+	sprintf(TextLine, "Scale           = %0.4f", scale);
+	MessageText(TextLine, 16, 19, 0);
+	sprintf(TextLine, "              W = %0.2fcm", (width * scale / 10.0 / StepsPermmX));
+	MessageText(TextLine, 16, 20, 0);
+	sprintf(TextLine, "              H = %0.2fcm", (height * scale / 10.0 / StepsPermmX));
+	MessageText(TextLine, 16, 21, 0);
+	if (plotterMode == MODE_PLOT) sprintf(TextLine, "Operating Mode  = " BWHT "PLOTTING" KRESET);
+	if (plotterMode == MODE_PRINT) sprintf(TextLine, "Operating Mode  = " BWHT "PRINTING" KRESET);
+	MessageText(TextLine, 16, 22, 0);
+	MessageText("#                                                                #", 1, 23, 1);
+	MessageText("##################################################################", 1, 24, 1);
+
+
+
 
 }
 //------------------------- PrintMenu_Main ------------------------------

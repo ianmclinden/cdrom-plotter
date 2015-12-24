@@ -42,11 +42,16 @@
 #define UCYN  "\x1B[4;36m"
 #define UWHT  "\x1B[4;37m"
 
-/* ---- Menu Level Constants -----------------------------------------------------------------------------------------------*/
+/* ---- Menu Level Constants -----------------------------------------------------------------------------------------*/
 
-#define MENU_MAIN 0
-#define MENU_FILE 1
-#define MENU_PLOTTER 2
+#define MENU_MAIN   0
+#define MENU_FILE   1
+#define MENU_PLOT   2
+
+/* ---- Plotter Mode Constants ---------------------------------------------------------------------------------------*/
+
+#define MODE_PRINT  0
+#define MODE_PLOT   1
 
 /* ---- Axis Constants -----------------------------------------------------------------------------------------------*/
 
