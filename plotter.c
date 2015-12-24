@@ -729,13 +729,13 @@ int main(int argc, char **argv) {
 
 			// Plot Key Hits
 			if (KeyHit == 'p') {
-				MessageText("!! 3 seconds until plotting starts .", 1, 20, 0);
+				MessageText(KRED "> 3 seconds until plotting starts ." KRESET, 1, 20, 0);
 				sleep(1);
-				MessageText("!! 2 seconds until plotting starts ..", 1, 20, 0);
+				MessageText(KRED "> 2 seconds until plotting starts .." KRESET, 1, 20, 0);
 				sleep(1);
-				MessageText("!! 1 seconds until plotting starts ...", 1, 20, 0);
+				MessageText(KRED "> 1 seconds until plotting starts ..." KRESET, 1, 20, 0);
 				sleep(1);
-				MessageText("!! Plotting ...", 1, 20, 0);
+				MessageText(KGRN "> Plotting ..." KRESET, 1, 20, 0);
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if ((PlotFile = fopen(FullFileName, "rb")) == NULL) {
 						sprintf(TextLine, "Can't open file '%s'!\n", FullFileName);

@@ -15,7 +15,19 @@
 #ifndef CDROM_PLOTTER_PLOTTER_H
 #define CDROM_PLOTTER_PLOTTER_H
 
-/* ---- Constants ----------------------------------------------------------------------------------------------------*/
+/* ---- Color Constants ----------------------------------------------------------------------------------------------*/
+
+#define KRESET  "\x1B[0m"
+#define KRED  "\x1B[31m"
+#define KGRN  "\x1B[32m"
+#define KYEL  "\x1B[33m"
+#define KBLU  "\x1B[34m"
+#define KMAG  "\x1B[35m"
+#define KCYN  "\x1B[36m"
+#define KWHT  "\x1B[37m"
+
+/* ---- Axis Constants -----------------------------------------------------------------------------------------------*/
+
 
 #define SERVOUP     10
 #define SERVODOWN   20
