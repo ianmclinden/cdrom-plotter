@@ -277,7 +277,7 @@ char *PrintMenu_File(int StartRow, int selected) {
 	}
 
 	gotoxy(MessageX, MessageY + 1);
-	printf("Choose file using up/down keys and confirm with 'Enter' or press 'Esc' to cancel.");
+	printf("Choose file using up/down keys.\nConfirm with 'Enter' or press 'Esc' to cancel.");
 
 
 	return (FileName);
@@ -668,6 +668,7 @@ int main(int argc, char **argv) {
 
 	while (1) {
 		PrintRow(' ', MessageY + 1);
+		PrintRow(' ', MessageY + 2);
 		MessageText("Waiting for key press.", MessageX, MessageY, 0);
 
 		i = 0;
@@ -769,6 +770,7 @@ int main(int argc, char **argv) {
 						strcpy(FileName, "noFiLE");
 						ErrorText(TextLine);
 					}
+					continue;
 				}
 
 				sleep(1);
