@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg version="1.2" baseProfile="tiny" viewBox="0 0 21590 27940" preserveAspectRatio="xMidYMid" fill-rule="evenodd" clip-path="url(#presentation_clip_path)" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" xmlns:smil="urn:oasis:names:tc:opendocument:xmlns:smil-compatible:1.0" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xml:space="preserve">
+ <defs>
+  <clipPath id="presentation_clip_path" clipPathUnits="userSpaceOnUse">
+   <rect x="0" y="0" width="21590" height="27940"/>
+  </clipPath>
+ </defs>
+ <g id="id2" class="Master_Slide" clip-path="url(#presentation_clip_path)">
+  <g id="bg-id2" visibility="visible" class="Background">
+   <rect fill="none" stroke="none" x="0" y="0" width="21590" height="27940"/>
+  </g>
+  <g id="bo-id2" visibility="visible" class="BackgroundObjects"/>
+ </g>
+ <g id="id1" class="Slide" visibility="visible" clip-path="url(#presentation_clip_path)">
+  <g class="com.sun.star.drawing.CustomShape">
+   <g>
+    <path fill="rgb(192,192,192)" stroke="none" d="M 7790,16230 L 6250,16230 6250,13150 9330,13150 9330,16230 7790,16230 Z"/>
+    <rect fill="none" stroke="none" x="6250" y="13150" width="3081" height="3081"/>
+    <rect fill="none" stroke="none" x="6250" y="13150" width="3081" height="3081"/>
+   </g>
+  </g>
+  <g class="com.sun.star.drawing.PolyPolygonShape">
+   <g>
+    <path fill="none" stroke="rgb(0,0,0)" d="M 8845,14964 L 8696,14964 8681,15050 8662,15135 8640,15217 8615,15295 8587,15367 8557,15432 8525,15489 8509,15514 8493,15536 8472,15560 8449,15583 8424,15604 8397,15623 8368,15640 8336,15657 8303,15671 8267,15684 8229,15696 8190,15706 8104,15721 8009,15730 7907,15733 7765,15733 7727,15732 7692,15729 7659,15725 7629,15719 7603,15711 7591,15707 7580,15703 7570,15698 7562,15693 7554,15688 7548,15682 7544,15678 7540,15674 7536,15670 7534,15666 7531,15661 7529,15656 7527,15651 7525,15645 7524,15639 7523,15632 7522,15615 7521,15570 7521,13863 7521,13765 7523,13717 7525,13698 7530,13680 7533,13672 7536,13665 7540,13659 7545,13652 7550,13647 7556,13641 7563,13637 7570,13632 7588,13625 7609,13619 7633,13614 7662,13611 7734,13607 7826,13606 7886,13606 7886,13447 6776,13447 6776,13606 6837,13606 6928,13607 7000,13611 7029,13614 7054,13619 7074,13625 7092,13632 7099,13637 7106,13641 7112,13647 7117,13652 7122,13659 7126,13665 7129,13672 7132,13680 7137,13698 7139,13717 7141,13765 7141,13863 7141,15475 7141,15574 7139,15621 7137,15641 7132,15659 7129,15666 7126,15674 7122,15680 7117,15687 7112,15692 7106,15697 7099,15702 7092,15707 7074,15714 7054,15720 7029,15725 7000,15728 6928,15732 6837,15733 6776,15733 6776,15892 8774,15892 8845,14964"/>
+   </g>
+  </g>
+ </g>
+</svg>

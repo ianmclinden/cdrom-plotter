@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg version="1.2" baseProfile="tiny" viewBox="0 0 21590 27940" preserveAspectRatio="xMidYMid" fill-rule="evenodd" clip-path="url(#presentation_clip_path)" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0" xmlns:smil="urn:oasis:names:tc:opendocument:xmlns:smil-compatible:1.0" xmlns:anim="urn:oasis:names:tc:opendocument:xmlns:animation:1.0" xml:space="preserve">
+ <defs>
+  <clipPath id="presentation_clip_path" clipPathUnits="userSpaceOnUse">
+   <rect x="0" y="0" width="21590" height="27940"/>
+  </clipPath>
+ </defs>
+ <g id="id2" class="Master_Slide" clip-path="url(#presentation_clip_path)">
+  <g id="bg-id2" visibility="visible" class="Background">
+   <rect fill="none" stroke="none" x="0" y="0" width="21590" height="27940"/>
+  </g>
+  <g id="bo-id2" visibility="visible" class="BackgroundObjects"/>
+ </g>
+ <g id="id1" class="Slide" visibility="visible" clip-path="url(#presentation_clip_path)">
+  <g class="com.sun.star.drawing.CustomShape">
+   <g>
+    <path fill="rgb(192,192,192)" stroke="none" d="M 7790,16852 L 6250,16852 6250,13772 9330,13772 9330,16852 7790,16852 Z"/>
+    <rect fill="none" stroke="none" x="6250" y="13772" width="3081" height="3081"/>
+    <rect fill="none" stroke="none" x="6250" y="13772" width="3081" height="3081"/>
+   </g>
+  </g>
+  <g class="com.sun.star.drawing.PolyPolygonShape">
+   <g>
+    <path fill="none" stroke="rgb(0,0,0)" d="M 7954,14916 L 7317,14916 7317,15079 7490,15079 7532,15080 7550,15082 7565,15085 7579,15089 7591,15094 7596,15097 7601,15100 7605,15104 7610,15109 7613,15113 7617,15119 7622,15130 7627,15144 7630,15160 7633,15178 7634,15199 7635,15248 7635,16057 7635,16193 7635,16217 7633,16239 7630,16258 7626,16275 7620,16290 7616,16297 7612,16303 7607,16309 7602,16314 7596,16319 7590,16323 7575,16331 7557,16337 7536,16342 7512,16346 7454,16351 7381,16352 7358,16352 7358,16474 8235,16474 8235,16352 8211,16352 8137,16351 8078,16346 8054,16343 8033,16338 8015,16331 8000,16324 7993,16319 7987,16314 7982,16309 7977,16303 7973,16297 7969,16291 7963,16276 7959,16259 7956,16240 7954,16219 7954,16195 7954,16062 7954,14916"/>
+    <path fill="none" stroke="rgb(0,0,0)" d="M 7795,14052 L 7774,14053 7755,14056 7736,14061 7718,14068 7701,14076 7685,14086 7670,14097 7656,14110 7643,14124 7632,14139 7622,14155 7614,14172 7607,14190 7602,14209 7599,14229 7598,14249 7599,14268 7602,14287 7607,14306 7613,14324 7622,14341 7631,14357 7643,14372 7655,14386 7669,14399 7684,14411 7700,14421 7717,14429 7734,14436 7753,14441 7772,14444 7791,14445 7812,14444 7832,14441 7851,14436 7870,14430 7887,14421 7903,14411 7919,14400 7933,14387 7946,14373 7957,14358 7967,14342 7975,14325 7982,14307 7987,14288 7990,14269 7991,14249 7990,14229 7987,14209 7982,14190 7976,14172 7967,14155 7957,14139 7946,14124 7933,14110 7919,14097 7904,14086 7888,14076 7871,14068 7853,14061 7834,14056 7815,14053 7795,14052"/>
+   </g>
+  </g>
+ </g>
+</svg>
