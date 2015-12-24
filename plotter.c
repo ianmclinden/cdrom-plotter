@@ -25,17 +25,22 @@
 #include <unistd.h>
 #include "plotter.h"
 
+// ---- Global Variables -------------------------------------------------------------------------------------------- //
+
+// Terminal GUI Variables
 int MaxRows = 24;
 int MaxCols = 80;
 int MessageX = 1;
 int MessageY = 24;
 unsigned char MoveBuffer[BUFFERSIZE];
 
+// Stepper Motor Drivers
 int StepX = 0;
 int StepY = 0;
 double StepsPermmX = 250.0 / 35.0;
 double StepsPermmY = 250.0 / 35.0;
 
+// Input Filepath
 char PicturePath[1000];
 
 //+++++++++++++++++++++++ Start gotoxy ++++++++++++++++++++++++++
@@ -175,7 +180,7 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 	char TextLine[300];
 
 	clrscr(1, MessageY - 2);
-	MessageText(UWHT "-- Main Menu --" KRESET, 1, 1, 1);
+	MessageText(UWHT "-- CD ROM  Plotter v0.5 --" KRESET, 1, 1, 1);
 	sprintf(TextLine, "M            - Toggle move length, current value = %ld step(s)", MoveLength);
 	MessageText(TextLine, 10, 3, 0);
 	MessageText("<Up>         - Move plotter in Y+ direction", 10, 4, 0);
@@ -537,11 +542,10 @@ int CalculatePlotter(long moveX, long moveY, long stepPause) {
 
 	return 0;
 }
+
 //-------------------------------------- CalculatePlotter --------------------------------------------------------
 
-//######################################################################
-//################## Main ##############################################
-//######################################################################
+// TODO : command line argment files
 
 int main(int argc, char **argv) {
 
@@ -559,7 +563,7 @@ int main(int argc, char **argv) {
 	double PicHeight = 0.0;
 	long MoveLength = 1;
 	long OldMoveLength = 200;
-	int plotterMode = 0;
+	int plotterMode = MODE_PRINT;
 	int i;
 	int SingleKey = 0;
 	long stepPause = 10000;
@@ -652,8 +656,8 @@ int main(int argc, char **argv) {
 		printf("Can't get size of terminal window");
 	}
 	else {
-		MaxRows = terminal.ws_row;
-		MaxCols = terminal.ws_col;
+		MaxRows = max(terminal.ws_row, 24);
+		MaxCols = max(terminal.ws_col, 80);
 		MessageY = MaxRows - 3;
 	}
 
@@ -663,6 +667,7 @@ int main(int argc, char **argv) {
 
 
 	while (1) {
+		PrintRow(' ', MessageY + 1);
 		MessageText("Waiting for key press.", MessageX, MessageY, 0);
 
 		i = 0;
@@ -711,7 +716,8 @@ int main(int argc, char **argv) {
 			}
 
 			// Move Pen UP
-			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 53 && KeyCode[3] == 126 && KeyCode[4] == 0) {
+			if ((KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 53 && KeyCode[3] == 126 && KeyCode[4] == 0) ||
+			    (KeyHit == 'u')) {
 				softPwmWrite(Z_SERVO, SERVOUP);
 				usleep(500000);
 				softPwmWrite(Z_SERVO, 0);
@@ -719,7 +725,8 @@ int main(int argc, char **argv) {
 			}
 
 			// Move Pen Down
-			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 54 && KeyCode[3] == 126 && KeyCode[4] == 0) {
+			if ((KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 54 && KeyCode[3] == 126 && KeyCode[4] == 0) ||
+			    (KeyHit == 'd')) {
 				softPwmWrite(Z_SERVO, SERVODOWN);
 				usleep(500000);
 				softPwmWrite(Z_SERVO, 0);
@@ -729,11 +736,14 @@ int main(int argc, char **argv) {
 
 			// Move Key Hit
 			if (KeyHit == 'm') {
-				if (MoveLength == 1) {
-					MoveLength = 10;
-				}
-				else {
-					MoveLength = 1;
+				switch (MoveLength) {
+					case 1:
+					case 10:
+						MoveLength *= 10;
+					case 100:
+					default:
+						MoveLength = 1;
+
 				}
 				PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
 			}
@@ -754,7 +764,7 @@ int main(int argc, char **argv) {
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if ((PlotFile = fopen(FullFileName, "rb")) == NULL) {
 						sprintf(TextLine, "Can't open file '%s'!\n", FullFileName);
-						strcpy(FileName, "NoFiLE");
+						strcpy(FileName, "noFiLE");
 						ErrorText(TextLine);
 					}
 				}
@@ -764,10 +774,9 @@ int main(int argc, char **argv) {
 				sleep(1);
 				MessageText(KRED "> 1 seconds until plotting starts ..." KRESET, 1, 27, 0);
 				sleep(1);
-				MessageText(KGRN "> Plotting ..." KRESET, 1, 27, 0);
 
 				if (strcmp(FileName, "noFiLE") != 0) {
-					if (plotterMode == 1) {//Plot file
+					if (plotterMode == MODE_PLOT) {
 						xNow1 = -1;
 						xNow2 = -1;
 						yNow1 = -1;
@@ -891,10 +900,10 @@ int main(int argc, char **argv) {
 						MessageText("Finished! Press any key to return to main menu.", MessageX, MessageY, 0);
 						getch();
 						PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
-					}//if(plotterMode == 1){
+					}//if(plotterMode == MODE_PLOT){
 
 
-					if (plotterMode == 0) {//bitmap
+					if (plotterMode == MODE_PRINT) {//bitmap
 						fread(&FileInfo, 2, 1, PlotFile);
 						fread(&FileSize, 4, 1, PlotFile);
 						fread(&LongTemp, 4, 1, PlotFile);
@@ -1004,14 +1013,12 @@ int main(int argc, char **argv) {
 						if (ReverseMode == 1) {
 							CalculatePlotter(-StepsPerPixelX * PictureWidth, 0, stepPause);
 						}
-					}//if(plotterMode == 0){
+					}//if(plotterMode == MODE_PRINT){
 				}//if(strcmp(FileName, "noFiLE") != 0){
 			}//if(KeyHit == 'p'){
 
-
-
-
 		}//if(MenuLevel == MENU_MAIN){
+
 
 		if (MenuLevel == MENU_FILE) {//Select file
 
@@ -1036,14 +1043,14 @@ int main(int argc, char **argv) {
 				if ((PlotFile = fopen(FullFileName, "rb")) == NULL) {
 					sprintf(TextLine, "Can't open file '%s'!\n", FullFileName);
 					ErrorText(TextLine);
-					strcpy(FileName, "NoFiLE");
+					strcpy(FileName, "noFiLE");
 				}
 				else {
 					if (memcmp(FileName + strlen(FileName) - 4, ".svg", 4) == 0) {
-						plotterMode = 1;
+						plotterMode = MODE_PLOT;
 					}
 					else {
-						plotterMode = 0;
+						plotterMode = MODE_PRINT;
 					}
 					xMin = 1000000;
 					xMax = -1000000;
@@ -1051,7 +1058,7 @@ int main(int argc, char **argv) {
 					yMax = -1000000;
 					coordinateCount = 0;
 
-					if (plotterMode == 1) {
+					if (plotterMode == MODE_PLOT) {
 
 						while (!(feof(PlotFile)) && stopPlot == 0) {
 
@@ -1128,11 +1135,11 @@ int main(int argc, char **argv) {
 							Scale = STEP_MAX_X / (double) (yMax - yMin);
 						}
 						//getch();
-					}//if(plotterMode == 1){
+					}//if(plotterMode == MODE_PLOT){
 
 
 
-					if (plotterMode == 0) {//bitmap
+					if (plotterMode == MODE_PRINT) {//bitmap
 						fread(&FileInfo, 2, 1, PlotFile);
 						fread(&FileSize, 4, 1, PlotFile);
 						fread(&LongTemp, 4, 1, PlotFile);
@@ -1151,23 +1158,23 @@ int main(int argc, char **argv) {
 						if (FileInfo[0] != 'B' || FileInfo[1] != 'M') {
 							sprintf(TextLine, "Wrong Fileinfo: %s (BM)!\n", FileInfo);
 							ErrorText(TextLine);
-							strcpy(FileName, "NoFiLE");
+							strcpy(FileName, "noFiLE");
 						}
 						if (PictureWidth != 55 || PictureHeight != 55) {
 							sprintf(TextLine, "Wrong file size (must be 55 x 55): %ld x %ld!\n", PictureWidth,
 							        PictureHeight);
 							ErrorText(TextLine);
-							strcpy(FileName, "NoFiLE");
+							strcpy(FileName, "noFiLE");
 						}
 						if (ColorDepth != 24) {
 							sprintf(TextLine, "Wrong ColorDepth: %d (must be 24)!\n", ColorDepth);
 							ErrorText(TextLine);
-							strcpy(FileName, "NoFiLE");
+							strcpy(FileName, "noFiLE");
 						}
 						if (CompressionType != 0) {
 							sprintf(TextLine, "Wrong CompressionType: %ld (0)!\n", CompressionType);
 							ErrorText(TextLine);
-							strcpy(FileName, "NoFiLE");
+							strcpy(FileName, "noFiLE");
 						}
 						xMin = 0;
 						xMax = PictureWidth * StepsPerPixelX;
