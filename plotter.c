@@ -667,7 +667,8 @@ int main(int argc, char **argv) {
 
 
 	while (1) {
-		clrscr(MessageY, MaxRows - 1);
+		clrscr(MessageY - 1, MaxRows - 1);
+		PrintRow('-', MessageY - 1);
 		MessageText("Waiting for key press.", MessageX, MessageY, 0);
 
 		i = 0;
