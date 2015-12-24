@@ -192,18 +192,28 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 
 	// Plotter Status
 	MessageText("##################################################################", 1, 16, 1);
-	MessageText("#                         Plotter Status                         #", 1, 17, 1);
-	sprintf(TextLine, UWHT "File = \"%s\"" KRESET, PlotFile);
-	MessageText(TextLine, 16, 19, 0);
-	sprintf(TextLine, "Scale       = %0.4f", scale);
-	MessageText(TextLine, 20, 20, 0);
-	sprintf(TextLine, "Width       = %0.2fcm", (width * scale / 10.0 / StepsPermmX));
-	MessageText(TextLine, 20, 21, 0);
-	sprintf(TextLine, "Height      = %0.2fcm", (height * scale / 10.0 / StepsPermmX));
-	MessageText(TextLine, 20, 22, 0);
-	if (plotterMode == MODE_PLOT) sprintf(TextLine, "File Mode   = " BRED "PLOT " KRESET "(Vector)");
-	if (plotterMode == MODE_PRINT) sprintf(TextLine, "File Mode   = " BRED "PRINT " KRESET "(Raster)");
-	MessageText(TextLine, 20, 23, 0);
+	MessageText("#" BWHT "                      Plotter Information:                     " KRESET "#", 1, 17, 1);
+
+	if (strncmp(PlotFile, "noFiLE", strlen(PlotFile)) == 0) {
+		MessageText(BRED "No File Loaded" KRESET, 16, 19, 0);
+		MessageText(KRED "Cannot Display file information..." KRESET, 20, 20, 0);
+		MessageText(BRED "No File Loaded" KRESET, 16, 21, 0);
+		MessageText(BRED "No File Loaded" KRESET, 16, 22, 0);
+		MessageText(BRED "No File Loaded" KRESET, 16, 23, 0);
+	} else {
+		sprintf(TextLine, UWHT "File = \"%s\"" KRESET, PlotFile);
+		MessageText(TextLine, 16, 19, 0);
+		sprintf(TextLine, "Scale       = %0.4f", scale);
+		MessageText(TextLine, 20, 20, 0);
+		sprintf(TextLine, "Width       = %0.2f cm", (width * scale / 10.0 / StepsPermmX));
+		MessageText(TextLine, 20, 21, 0);
+		sprintf(TextLine, "Height      = %0.2f cm", (height * scale / 10.0 / StepsPermmX));
+		MessageText(TextLine, 20, 22, 0);
+		if (plotterMode == MODE_PLOT) sprintf(TextLine, "File Mode   = " BRED "PLOT " KRESET "(Vector)");
+		if (plotterMode == MODE_PRINT) sprintf(TextLine, "File Mode   = " BBLU "PRINT " KRESET "(Raster)");
+		MessageText(TextLine, 20, 23, 0);
+	}
+
 	MessageText("#                                                                #", 1, 24, 1);
 	MessageText("##################################################################", 1, 25, 1);
 
