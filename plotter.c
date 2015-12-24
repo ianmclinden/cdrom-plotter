@@ -192,20 +192,20 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 
 	// Plotter Status
 	MessageText("##################################################################", 1, 16, 1);
-	MessageText("#" BWHT "                         Plotter Status                        " KRESET "#", 1, 17, 1);
+	MessageText("#                         Plotter Status                         #", 1, 17, 1);
 	sprintf(TextLine, "File            = \"%s\"", PlotFile);
-	MessageText(TextLine, 16, 18, 0);
-	sprintf(TextLine, "Scale           = %0.4f", scale);
 	MessageText(TextLine, 16, 19, 0);
-	sprintf(TextLine, "              W = %0.2fcm", (width * scale / 10.0 / StepsPermmX));
-	MessageText(TextLine, 16, 20, 0);
-	sprintf(TextLine, "              H = %0.2fcm", (height * scale / 10.0 / StepsPermmX));
-	MessageText(TextLine, 16, 21, 0);
-	if (plotterMode == MODE_PLOT) sprintf(TextLine, "Operating Mode  = " BWHT "PLOTTING" KRESET);
-	if (plotterMode == MODE_PRINT) sprintf(TextLine, "Operating Mode  = " BWHT "PRINTING" KRESET);
-	MessageText(TextLine, 16, 22, 0);
-	MessageText("#                                                                #", 1, 23, 1);
-	MessageText("##################################################################", 1, 24, 1);
+	sprintf(TextLine, "Scale       = %0.4f", scale);
+	MessageText(TextLine, 20, 20, 0);
+	sprintf(TextLine, "Width       = %0.2fcm", (width * scale / 10.0 / StepsPermmX));
+	MessageText(TextLine, 20, 21, 0);
+	sprintf(TextLine, "Height      = %0.2fcm", (height * scale / 10.0 / StepsPermmX));
+	MessageText(TextLine, 20, 22, 0);
+	if (plotterMode == MODE_PLOT) sprintf(TextLine, "File Mode  = " BRED "PLOTTING" KRESET);
+	if (plotterMode == MODE_PRINT) sprintf(TextLine, "File Mode  = " BBLU "PRINTING" KRESET);
+	MessageText(TextLine, 20, 23, 0);
+	MessageText("#                                                                #", 1, 24, 1);
+	MessageText("##################################################################", 1, 25, 1);
 
 
 
