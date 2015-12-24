@@ -13,7 +13,7 @@
 # http://www.HomoFaciens.de/technics-machines-plotter-cdrom_en_navion.htm
 
 CC=gcc
-CFLAGS= -O2 -g -Wall -I/usr/local/include -L/usr/local/lib -lwiringPi -lm
+CFLAGS= -O2 -fdiagnostics-color=always -g -Wall -I/usr/local/include -L/usr/local/lib -lwiringPi -lm
 
 ###############
 
