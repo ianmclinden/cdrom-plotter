@@ -276,7 +276,7 @@ char *PrintMenu_File(int StartRow, int selected) {
 		pDirEnt = readdir(pDIR);
 	}
 
-	gotoxy(MessageX, MessageY + 1);
+	gotoxy(MessageX, MessageY + 2);
 	printf("Choose file using up/down keys.\nConfirm with 'Enter' or press 'Esc' to cancel.");
 
 
@@ -658,17 +658,17 @@ int main(int argc, char **argv) {
 	else {
 		MaxRows = terminal.ws_row;
 		MaxCols = terminal.ws_col;
-		MessageY = MaxRows - 3;
+		MessageY = MaxRows - 4;
 	}
 
 	clrscr(1, MaxRows);
-	PrintRow('-', MessageY - 1);
+	PrintRow('-', MessageY + 1);
 	PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
 
 
 	while (1) {
-		PrintRow(' ', MessageY + 1);
-		PrintRow(' ', MessageY + 2);
+//		PrintRow(' ', MessageY + 1);
+//		PrintRow(' ', MessageY + 2);
 		MessageText("Waiting for key press.", MessageX, MessageY, 0);
 
 		i = 0;
@@ -1040,7 +1040,7 @@ int main(int argc, char **argv) {
 
 			if (KeyHit == 10) {//Read file and store values
 				MenuLevel = MENU_MAIN;
-				clrscr(MessageY + 1, MessageY + 1);
+				clrscr(MessageY + 2, MessageY + 3);
 				strcpy(FullFileName, PicturePath);
 				strcat(FullFileName, "/");
 				strcat(FullFileName, FileName);
@@ -1198,8 +1198,8 @@ int main(int argc, char **argv) {
 
 		if (KeyHit == 27) {
 			if (MenuLevel == MENU_MAIN) {
-				clrscr(MessageY + 1, MessageY + 1);
-				MessageText("Exit program (y/n)?", MessageX, MessageY + 1, 0);
+				clrscr(MessageY + 2, MessageY + 3);
+				MessageText("Exit program (y/n)?", MessageX, MessageY + 2, 0);
 				while (KeyHit != 'y' && KeyHit != 'n') {
 					KeyHit = getch();
 					if (KeyHit == 'y') {
@@ -1223,7 +1223,7 @@ int main(int argc, char **argv) {
 				strcpy(FileName, FileNameOld);
 				PrintMenu_Main(FileName, Scale, xMax - xMin, yMax - yMin, MoveLength, plotterMode);
 			}
-			clrscr(MessageY + 1, MessageY + 1);
+			clrscr(MessageY + 2, MessageY + 3);
 		}
 	}
 
