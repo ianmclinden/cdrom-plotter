@@ -131,7 +131,7 @@ int getch() {
 	ch = getchar();
 	tcsetattr(fd, TCSANOW, &old_ch);
 
-//   printf("ch=%d ", ch);
+	printf("ch=%d ", ch);
 
 	return ch;
 }
@@ -726,19 +726,23 @@ int main(int argc, char **argv) {
 			// Move Pen UP
 			if ((KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 53 && KeyCode[3] == 126 && KeyCode[4] == 0) ||
 			    (KeyHit == 'u')) {
+				MessageText("Raising Pen", 1, MessageY - 2, 0);
 				softPwmWrite(Z_SERVO, SERVOUP);
 				usleep(500000);
 				softPwmWrite(Z_SERVO, 0);
 				currentPlotDown = 0;
+				MessageText("Pen Raised", 1, MessageY - 2, 0);
 			}
 
 			// Move Pen Down
 			if ((KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 54 && KeyCode[3] == 126 && KeyCode[4] == 0) ||
 			    (KeyHit == 'd')) {
+				MessageText("Lowering Pen", 1, MessageY - 2, 0);
 				softPwmWrite(Z_SERVO, SERVODOWN);
 				usleep(500000);
 				softPwmWrite(Z_SERVO, 0);
 				currentPlotDown = 1;
+				MessageText("(Pen Lowered)", 1, MessageY - 2, 0);
 			}
 
 
@@ -1040,12 +1044,13 @@ int main(int argc, char **argv) {
 
 		if (MenuLevel == MENU_FILE) {//Select file
 
+			// Down Arrow
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 66 && KeyCode[3] == 0 && KeyCode[4] == 0) {
-
 				FileSelected++;
 				strcpy(FileName, PrintMenu_File(FileStartRow, FileSelected));
 			}
 
+			// Up Arrow
 			if (KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 65 && KeyCode[3] == 0 && KeyCode[4] == 0) {
 				if (FileSelected > 0) {
 					FileSelected--;
@@ -1053,6 +1058,7 @@ int main(int argc, char **argv) {
 				}
 			}
 
+			// Enter
 			if (KeyHit == 10) {//Read file and store values
 				MenuLevel = MENU_MAIN;
 				clrscr(MessageY + 1, MessageY + 1);
@@ -1209,7 +1215,7 @@ int main(int argc, char **argv) {
 
 		}//if(MenuLevel == MENU_FILE){
 
-
+		// Escape
 		if (KeyHit == 27) {
 			if (MenuLevel == MENU_MAIN) {
 				clrscr(MessageY + 1, MessageY + 1);
