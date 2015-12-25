@@ -193,7 +193,7 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 	MessageText("<PgUp> / U   - Lift pen", 10, 8, 0);
 	MessageText("<PgDn> / D   - Lower pen", 10, 9, 0);
 	MessageText("F            - Choose Print file", 10, 10, 0);
-	MessageText("0            - Move plotter to (0,0)", 10, 11, 0);
+	MessageText("0            - Move plotter to (X,Y,Z) = (0,0,Up)", 10, 11, 0);
 	MessageText("P            - Print/Plot file", 10, 12, 0);
 
 	MessageText("Esc          - Exit program", 10, 14, 0);
@@ -633,7 +633,6 @@ int main(int argc, char **argv) {
 	usleep(500000);
 	softPwmWrite(Z_SERVO, 0);
 
-
 	pinMode(X_STEPPER01, OUTPUT);
 	pinMode(X_STEPPER02, OUTPUT);
 	pinMode(X_STEPPER03, OUTPUT);
@@ -731,7 +730,7 @@ int main(int argc, char **argv) {
 				usleep(500000);
 				softPwmWrite(Z_SERVO, 0);
 				currentPlotDown = 0;
-				MessageText("Pen Raised", 1, MessageY - 2, 0);
+				MessageText("(Pen Raised)", 1, MessageY - 2, 0);
 			}
 
 			// Move Pen Down
@@ -743,6 +742,18 @@ int main(int argc, char **argv) {
 				softPwmWrite(Z_SERVO, 0);
 				currentPlotDown = 1;
 				MessageText("(Pen Lowered)", 1, MessageY - 2, 0);
+			}
+
+
+			// Zero Axes
+			if (KeyHit == 48) { // 0
+				MessageText("Zeroing X,Y,Z", 1, MessageY - 2, 0);
+				softPwmWrite(Z_SERVO, SERVOUP);
+				usleep(500000);
+				softPwmWrite(Z_SERVO, 0);
+				currentPlotDown = 0;
+
+				// TODO : move xy to 0,0
 			}
 
 
