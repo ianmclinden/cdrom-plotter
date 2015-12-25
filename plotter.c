@@ -766,6 +766,7 @@ int main(int argc, char **argv) {
 
 				if (strcmp(FileName, "noFiLE") == 0) {
 					ErrorText(KRED "> No File loaded" KRESET);
+					continue;
 				}
 
 				if (strcmp(FileName, "noFiLE") != 0) {
@@ -773,6 +774,7 @@ int main(int argc, char **argv) {
 						sprintf(TextLine, "Can't open file '%s'!\n", FullFileName);
 						strcpy(FileName, "noFiLE");
 						ErrorText(TextLine);
+						continue;
 					}
 				}
 
