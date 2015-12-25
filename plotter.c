@@ -811,28 +811,7 @@ int main(int argc, char **argv) {
 
 						while (!(feof(PlotFile)) && stopPlot == 0) {
 
-							SingleKey = 1;
-							KeyCode[0] = 0;
-							KeyCode[1] = 0;
-							KeyCode[2] = 0;
-							KeyCode[3] = 0;
-							KeyCode[4] = 0;
-							KeyHit = 0;
-							while (kbhit()) {
-								KeyHit = getch();
-								KeyCode[i] = KeyHit;
-								i++;
-								if (i == 5) {
-									i = 0;
-								}
-								if (i > 1) {
-									SingleKey = 0;
-								}
-							}
-							if (SingleKey == 0) {
-								KeyHit = 0;
-							}
-
+							KeyHit = getch();
 							if (KeyHit == 27) { // ABORT
 								ErrorText("Print Aborted!");
 								break;
