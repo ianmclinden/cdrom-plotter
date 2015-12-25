@@ -131,7 +131,7 @@ int getch() {
 	ch = getchar();
 	tcsetattr(fd, TCSANOW, &old_ch);
 
-	printf("ch=%d ", ch);
+//	printf("ch=%d ", ch);
 
 	return ch;
 }
