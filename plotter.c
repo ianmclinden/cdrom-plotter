@@ -268,9 +268,7 @@ int main(int argc, char **argv) {
 	char FileNameOld[200] = "";
 	struct winsize terminal;
 	double Scale = 1.0;
-	double OldScale = 1.0;
 	long MoveLength = 1;
-	long OldMoveLength = 200;
 	int plotterMode = MODE_PRINT;
 	int i;
 	int SingleKey = 0;
@@ -527,6 +525,10 @@ int main(int argc, char **argv) {
 						}
 
 						while (!(feof(PlotFile)) && stopPlot == 0) {
+
+							if (kbhit()) {
+								break;
+							}
 
 							fread(&a, 1, 1, PlotFile);
 							i = 0;
