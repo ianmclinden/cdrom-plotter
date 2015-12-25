@@ -536,9 +536,9 @@ int main(int argc, char **argv) {
 
 						while (!(feof(PlotFile)) && stopPlot == 0) {
 
-							if (kbhit()) {
-								break;
-							}
+//							if (kbhit()) {
+//								break;
+//							}
 
 							fread(&a, 1, 1, PlotFile);
 							i = 0;
