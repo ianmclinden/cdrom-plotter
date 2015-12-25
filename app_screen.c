@@ -12,6 +12,13 @@
 // For details see:
 // http://www.HomoFaciens.de/technics-machines-plotter-cdrom_en_navion.htm
 
+#include <stdio.h>
+#include <termios.h>
+#include <string.h>
+#include <dirent.h>
+#include <time.h>
+#include <sys/time.h>
+#include "plotter.h"
 #include "app_screen.h"
 
 //+++++++++++++++++++++++ Start gotoxy ++++++++++++++++++++++++++
@@ -221,7 +228,6 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 //+++++++++++++++++++++++++ PrintMenu_File ++++++++++++++++++++++++++++++
 char *PrintMenu_File(int StartRow, int selected) {
 	char TextLine[300];
-	char FilePattern[5];
 	char OpenDirName[1000];
 	static char FileName[101];
 	DIR *pDIR;

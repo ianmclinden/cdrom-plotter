@@ -16,21 +16,16 @@
 #define CDROM_PLOTTER_APP_SCREEN_H
 
 int gotoxy(int x, int y);
-
 void clrscr(int StartRow, int EndRow);
 
 int kbhit(void);
-
 int getch();
 
 void MessageText(char *message, int x, int y, int alignment);
-
 void PrintRow(char character, int y);
-
 void ErrorText(char *message);
 
 void PrintMenu_Main(char *PlotFile, double scale, double width, double height, long MoveLength, int plotterMode);
-
 char *PrintMenu_File(int StartRow, int selected);
 
 void PrintMenu_Plot(char *FullFileName, long NumberOfLines, long CurrentLine, long CurrentX, long CurrentY,
