@@ -23,8 +23,8 @@
 #include <math.h>
 #include <wiringPi.h>
 #include <unistd.h>
-#include "plotter.h"
 #include "app_screen.h"
+#include "plotter.h"
 
 //++++++++++++++++++++++++++++++ MakeStepX ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void MakeStepX(int direction, long stepPause) {
