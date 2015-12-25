@@ -136,7 +136,7 @@ void MakeStepY(int direction, long stepPause) {
 //++++++++++++++++++++++++++++++ MoveZ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void MoveZ(int direction) { //1 for down 0 for up
 
-	if (direction == 1) {
+	if (direction == 1 && Down == 0) {
 		MessageText("Lowering Pen", 1, MessageY - 2, 0);
 		softPwmWrite(Z_SERVO, SERVODOWN);
 		usleep(500000);
@@ -294,7 +294,7 @@ int main(int argc, char **argv) {
 	int i;
 	int SingleKey = 0;
 	long stepPause = 10000;
-	long currentPlotX = 0, currentPlotY = 0, ZDown = 0;
+	long currentPlotX = 0, currentPlotY = 0;
 	int FileSelected = 0;
 	int FileStartRow = 0;
 	char *pEnd;
@@ -444,13 +444,17 @@ int main(int argc, char **argv) {
 			// Move Pen UP
 			if ((KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 53 && KeyCode[3] == 126 && KeyCode[4] == 0) ||
 			    (KeyHit == 'u')) {
-				MoveZ(0);
+				if (ZDown == 1) {
+					MoveZ(0);
+				}
 			}
 
 			// Move Pen Down
 			if ((KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 54 && KeyCode[3] == 126 && KeyCode[4] == 0) ||
 			    (KeyHit == 'd')) {
-				MoveZ(1);
+				if (ZDown == 0) {
+					MoveZ(1);
+				}
 			}
 
 
