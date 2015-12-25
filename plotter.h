@@ -84,20 +84,20 @@
 /* ---- Globals ------------------------------------------------------------------------------------------------------*/
 
 // Terminal GUI Variables
-int MaxRows = 24;
-int MaxCols = 80;
-int MessageX = 1;
-int MessageY = 24;
-unsigned char MoveBuffer[BUFFERSIZE];
+extern int MaxRows = 24;
+extern int MaxCols = 80;
+extern int MessageX = 1;
+extern int MessageY = 24;
+extern unsigned char MoveBuffer[BUFFERSIZE];
 
 // Stepper Motor Drivers
-int StepX = 0;
-int StepY = 0;
-double StepsPermmX = 250.0 / 35.0;
-double StepsPermmY = 250.0 / 35.0;
+extern int StepX = 0;
+extern int StepY = 0;
+extern double StepsPermmX = 250.0 / 35.0;
+extern double StepsPermmY = 250.0 / 35.0;
 
 // Input Filepath
-char PicturePath[1000];
+extern char PicturePath[1000];
 
 
 #endif //CDROM_PLOTTER_PLOTTER_H

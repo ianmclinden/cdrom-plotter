@@ -18,6 +18,7 @@
 #include <dirent.h>
 #include <time.h>
 #include <sys/time.h>
+#include <wiringPi.h>
 #include "plotter.h"
 #include "app_screen.h"
 
