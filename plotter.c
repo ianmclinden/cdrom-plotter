@@ -136,7 +136,7 @@ void MakeStepY(int direction, long stepPause) {
 //++++++++++++++++++++++++++++++ MoveZ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void MoveZ(int direction) { //1 for down 0 for up
 
-	if (direction == 1 && Down == 0) {
+	if (direction == 1 && ZDown == 0) {
 		MessageText("Lowering Pen", 1, MessageY - 2, 0);
 		softPwmWrite(Z_SERVO, SERVODOWN);
 		usleep(500000);
