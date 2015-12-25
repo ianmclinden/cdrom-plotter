@@ -141,14 +141,14 @@ void MoveZ(int direction) { //1 for down 0 for up
 		softPwmWrite(Z_SERVO, SERVODOWN);
 		usleep(500000);
 		softPwmWrite(Z_SERVO, 0);
-		currentPlotDown = 1;
+		ZDown = 1;
 		MessageText("(Pen Lowered)", 1, MessageY - 2, 0);
 	} else {
 		MessageText("Raising Pen", 1, MessageY - 2, 0);
 		softPwmWrite(Z_SERVO, SERVOUP);
 		usleep(500000);
 		softPwmWrite(Z_SERVO, 0);
-		currentPlotDown = 0;
+		ZDown = 0;
 		MessageText("(Pen Raised)", 1, MessageY - 2, 0);
 	}
 
@@ -294,7 +294,7 @@ int main(int argc, char **argv) {
 	int i;
 	int SingleKey = 0;
 	long stepPause = 10000;
-	long currentPlotX = 0, currentPlotY = 0, currentPlotDown = 0;
+	long currentPlotX = 0, currentPlotY = 0, ZDown = 0;
 	int FileSelected = 0;
 	int FileStartRow = 0;
 	char *pEnd;
@@ -526,7 +526,7 @@ int main(int argc, char **argv) {
 						PrintMenu_Plot(FullFileName, coordinateCount, 0, 0, 0, PlotStartTime);
 						coordinatePlot = 0;
 						stopPlot = 0;
-						if (currentPlotDown == 1) {
+						if (ZDown == 1) {
 							MoveZ(0);
 						}
 
@@ -548,7 +548,7 @@ int main(int argc, char **argv) {
 							if (a == '<') {//Init
 								if (xNow2 > -1 && yNow2 > -1 && (xNow2 != xNow1 || yNow2 != yNow1)) {
 									stopPlot = CalculatePlotter(xNow2 - currentPlotX, yNow2 - currentPlotY, stepPause);
-									if (currentPlotDown == 0) {
+									if (ZDown == 0) {
 										MoveZ(1)
 									}
 									currentPlotX = xNow2;
@@ -569,7 +569,7 @@ int main(int argc, char **argv) {
 								yNow2 = -1;
 							}
 							if (strcmp(TextLine, "path") == 0) {
-								if (currentPlotDown == 1) {
+								if (ZDown == 1) {
 									MoveZ(0);
 								}
 								ReadState = 1;//path found
@@ -601,7 +601,7 @@ int main(int argc, char **argv) {
 							if (ReadState == 7) {
 								if (xNow2 > -1 && yNow2 > -1 && (xNow2 != xNow1 || yNow2 != yNow1)) {
 									stopPlot = CalculatePlotter(xNow2 - currentPlotX, yNow2 - currentPlotY, stepPause);
-									if (currentPlotDown == 0) {
+									if (ZDown == 0) {
 										MoveZ(1);
 									}
 									currentPlotX = xNow2;
@@ -615,7 +615,7 @@ int main(int argc, char **argv) {
 							}
 						}//while(!(feof(PlotFile)) && stopPlot == 0){
 						fclose(PlotFile);
-						if (currentPlotDown == 1) {
+						if (ZDown == 1) {
 							MoveZ(0);
 						}
 						PrintMenu_Plot(FullFileName, coordinateCount, coordinatePlot, 0, 0, PlotStartTime);
@@ -679,17 +679,17 @@ int main(int argc, char **argv) {
 								fread(&PixelRedNext, 1, 1, PlotFile);
 
 								if (PixelRed < 200 || PixelGreen < 200 || PixelBlue < 200) {
-									if (currentPlotDown == 0) {
+									if (ZDown == 0) {
 										MoveZ(1);
 									}
 									if (PixelRedNext > 199 && PixelGreenNext > 199 && PixelBlueNext > 199) {
-										if (currentPlotDown == 1) {
+										if (ZDown == 1) {
 											MoveZ(0);
 										}
 									}
 								}
 								else {
-									if (currentPlotDown == 1) {
+									if (ZDown == 1) {
 										MoveZ(0);
 									}
 								}
@@ -714,13 +714,13 @@ int main(int argc, char **argv) {
 									}
 								}
 							}//while(NewLine == 0){
-							if (currentPlotDown == 1) {
+							if (ZDown == 1) {
 								MoveZ(0);
 							}
 							CalculatePlotter(0, -StepsPerPixelY, stepPause);
 						}//for(currentPlotY = 0; currentPlotY < PictureHeight + JetOffset1 + JetOffset2; currentPlotY++){
 						fclose(PlotFile);
-						if (currentPlotDown == 1) {
+						if (ZDown == 1) {
 							MoveZ(0);
 						}
 						if (ReverseMode == 1) {

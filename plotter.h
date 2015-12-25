@@ -93,6 +93,7 @@ unsigned char MoveBuffer[BUFFERSIZE];
 // Stepper Motor Drivers
 int StepX = 0;
 int StepY = 0;
+int ZDown = 0;
 double StepsPermmX = 250.0 / 35.0;
 double StepsPermmY = 250.0 / 35.0;
 
