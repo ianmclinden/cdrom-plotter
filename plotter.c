@@ -814,15 +814,6 @@ int main(int argc, char **argv) {
 
 						while (!(feof(PlotFile)) && stopPlot == 0) {
 
-							while (kbhit()) {
-								KeyHit = getch();
-							}
-							if (KeyHit == 27) { // ABORT
-								ErrorText("Print Aborted!");
-								getch();
-								break;
-							}
-
 							fread(&a, 1, 1, PlotFile);
 							i = 0;
 							TextLine[0] = '\0';
