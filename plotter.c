@@ -543,6 +543,9 @@ int CalculatePlotter(long moveX, long moveY, long stepPause) {
 		}
 	}
 
+	sprintf(TextLine, "(Moved X: %ld, Moved Y: %ld)", moveX, moveY);
+	MessageText(TextLine, MessageX, MessageY - 2, 0);
+
 	return 0;
 }
 //-------------------------------------- CalculatePlotter --------------------------------------------------------
