@@ -811,9 +811,12 @@ int main(int argc, char **argv) {
 
 						while (!(feof(PlotFile)) && stopPlot == 0) {
 
-							KeyHit = getch();
+							while (kbhit()) {
+								KeyHit = getch();
+							}
 							if (KeyHit == 27) { // ABORT
 								ErrorText("Print Aborted!");
+								getch();
 								break;
 							}
 
