@@ -764,7 +764,7 @@ int main(int argc, char **argv) {
 			// Plot Key Hits
 			if (KeyHit == 'p') {
 
-				if (strcmp(FileName, "noFile") == 0) {
+				if (strcmp(FileName, "noFiLE") == 0) {
 					MessageText(KRED "> No File loaded" KRESET, 1, MessageY + 1, 0);
 					continue;
 				}
