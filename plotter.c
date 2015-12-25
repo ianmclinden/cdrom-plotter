@@ -171,7 +171,7 @@ void PrintRow(char character, int y) {
 void ErrorText(char *message) {
 	clrscr(MessageY + 2, MessageY - 2);
 	gotoxy(1, MessageY - 2);
-	printf("Last error: %s", message);
+	printf(BRED "Error: %s" KRESET, message);
 }
 //----------------------------- ErrorText ---------------------------
 
@@ -434,7 +434,7 @@ int CalculatePlotter(long moveX, long moveY, long stepPause) {
 	unsigned char reverseX = 0, reverseY = 0;
 
 	sprintf(TextLine, "Moving X: %ld, Moving Y: %ld", moveX, moveY);
-	MessageText(TextLine, MessageX, MessageY, 0);
+	MessageText(TextLine, MessageX, MessageY - 2, 0);
 //  getch();
 
 	if (moveX == 0) {
@@ -723,7 +723,7 @@ int main(int argc, char **argv) {
 				softPwmWrite(Z_SERVO, SERVOUP);
 				usleep(500000);
 				softPwmWrite(Z_SERVO, 0);
-				currentPlotDown = 1;
+				currentPlotDown = 0;
 			}
 
 			// Move Pen Down
@@ -765,7 +765,7 @@ int main(int argc, char **argv) {
 			if (KeyHit == 'p') {
 
 				if (strcmp(FileName, "noFiLE") == 0) {
-					ErrorText(KRED "> No File loaded" KRESET);
+					ErrorText(KRED "No File loaded" KRESET);
 					continue;
 				}
 
@@ -778,13 +778,13 @@ int main(int argc, char **argv) {
 					}
 				}
 
-				MessageText(KRED "> 3 seconds until printer starts ." KRESET, 1, MessageY + 1, 0);
+				MessageText(KRED "> 3 seconds until printer starts ." KRESET, 1, MessageY - 2, 0);
 				sleep(1);
-				MessageText(KRED "> 2 seconds until printer starts .." KRESET, 1, MessageY + 1, 0);
+				MessageText(KRED "> 2 seconds until printer starts .." KRESET, 1, MessageY - 2, 0);
 				sleep(1);
-				MessageText(KRED "> 1 seconds until printer starts ..." KRESET, 1, MessageY + 1, 0);
+				MessageText(KRED "> 1 seconds until printer starts ..." KRESET, 1, MessageY - 2, 0);
 				sleep(1);
-				MessageText(KGRN "> Running" KRESET, 1, MessageY + 1, 0);
+				MessageText(KGRN "> Running" KRESET, 1, MessageY - 2, 0);
 
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if (plotterMode == MODE_PLOT) {
