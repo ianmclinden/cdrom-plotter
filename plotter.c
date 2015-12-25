@@ -138,7 +138,6 @@ int CalculatePlotter(long moveX, long moveY, long stepPause) {
 	char TextLine[1000] = "";
 	long tempX = 0, tempY = 0;
 	int i = 0;
-	unsigned char reverseX = 0, reverseY = 0;
 
 	sprintf(TextLine, "Moving X: %ld, Moving Y: %ld", moveX, moveY);
 	MessageText(TextLine, MessageX, MessageY - 2, 0);
@@ -270,8 +269,6 @@ int main(int argc, char **argv) {
 	struct winsize terminal;
 	double Scale = 1.0;
 	double OldScale = 1.0;
-	double PicWidth = 0.0;
-	double PicHeight = 0.0;
 	long MoveLength = 1;
 	long OldMoveLength = 200;
 	int plotterMode = MODE_PRINT;
@@ -311,9 +308,7 @@ int main(int argc, char **argv) {
 	struct timeval StartTime, EndTime;
 	long coordinatePlot = 0;
 	int stopPlot = 0;
-	long JetOffset1 = 40, JetOffset2 = 40;
 	int ReverseMode, NewLine;
-	long CyanDrops, MagentaDrops, YellowDrops;
 	int PixelRed, PixelGreen, PixelBlue;
 	int PixelRedNext, PixelGreenNext, PixelBlueNext;
 	long PlotStartTime = 0;
