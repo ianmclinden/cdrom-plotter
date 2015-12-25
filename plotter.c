@@ -549,7 +549,7 @@ int main(int argc, char **argv) {
 								if (xNow2 > -1 && yNow2 > -1 && (xNow2 != xNow1 || yNow2 != yNow1)) {
 									stopPlot = CalculatePlotter(xNow2 - currentPlotX, yNow2 - currentPlotY, stepPause);
 									if (ZDown == 0) {
-										MoveZ(1)
+										MoveZ(1);
 									}
 									currentPlotX = xNow2;
 									currentPlotY = yNow2;
