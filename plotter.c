@@ -152,8 +152,9 @@ void MessageText(char *message, int x, int y, int alignment) {
 		}
 	}
 	strcat(TextLine, message);
-
 	printf("%s\n", TextLine);
+
+	gotoxy(1, MessageY);
 }
 //-------------------------- End MessageText ---------------------------
 
@@ -164,6 +165,7 @@ void PrintRow(char character, int y) {
 	for (i = 0; i < MaxCols; i++) {
 		printf("%c", character);
 	}
+	gotoxy(1, MessageY);
 }
 //-------------------------- End PrintRow ------------------------------
 
@@ -172,6 +174,7 @@ void ErrorText(char *message) {
 	clrscr(MessageY + 2, MessageY - 2);
 	gotoxy(1, MessageY - 2);
 	printf(BRED "Error: %s" KRESET, message);
+	gotoxy(1, MessageY);
 }
 //----------------------------- ErrorText ---------------------------
 
