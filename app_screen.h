@@ -178,65 +178,50 @@ void PrintMenu_Main(char *PlotFile, double scale, double width, double height, l
 	char TextLine[300];
 
 	clrscr(1, MessageY - 2);
-	MessageText(UWHT
-			            "-- CD ROM  Plotter v0.5 --"
-			            KRESET, 1, 1, 1);
-	sprintf(TextLine, "M            - Toggle move length, current value = %ld step(s)", MoveLength);
-	MessageText(TextLine, 10, 3, 0);
-	MessageText("<Up>         - Move plotter in Y+ direction", 10, 4, 0);
-	MessageText("<Down>       - Move plotter in Y- direction", 10, 5, 0);
-	MessageText("<Left>       - Move plotter in X- direction", 10, 6, 0);
-	MessageText("<Right>      - Move plotter in X+ direction", 10, 7, 0);
-	MessageText("<PgUp> / U   - Lift pen", 10, 8, 0);
-	MessageText("<PgDn> / D   - Lower pen", 10, 9, 0);
-	MessageText("F            - Choose Print file", 10, 10, 0);
-	MessageText("0            - Move plotter to (X,Y,Z) = (0,0,Up)", 10, 11, 0);
-	MessageText("P            - Print/Plot file", 10, 12, 0);
+	MessageText(UWHT "-- CD ROM  Plotter v0.5 --" KRESET, 1, 1, 1);
 
-	MessageText("Esc          - Exit program", 10, 14, 0);
+	sprintf(TextLine, "M            - Toggle move length, current value = %ld step(s)", MoveLength);
+	MessageText(TextLine, 10, 4, 0);
+	MessageText("<Up>         - Move plotter in Y+ direction", 10, 5, 0);
+	MessageText("<Down>       - Move plotter in Y- direction", 10, 6, 0);
+	MessageText("<Left>       - Move plotter in X- direction", 10, 7, 0);
+	MessageText("<Right>      - Move plotter in X+ direction", 10, 8, 0);
+	MessageText("<PgUp> / U   - Lift pen", 10, 8, 0);
+	MessageText("<PgDn> / D   - Lower pen", 10, 10, 0);
+	MessageText("F            - Choose Print file", 10, 11, 0);
+	MessageText("0            - Move plotter to (X,Y,Z) = (0,0,Up)", 10, 12, 0);
+	MessageText("P            - Print/Plot file", 10, 13, 0);
+
+	MessageText("Esc          - Exit program", 10, 15, 0);
 
 	// Plotter Status
-	MessageText("##################################################################", 1, 16, 1);
-	MessageText("#                       Plotter Information:                     #", 1, 17, 1);
+	MessageText("##################################################################", 1, 17, 1);
+	MessageText("#                       Plotter Information:                     #", 1, 18, 1);
 
 	if (strncmp(PlotFile, "noFiLE", strlen(PlotFile)) == 0) {
-		MessageText(BRED
-				            "No File Loaded"
-				            KRESET, 16, 19, 0);
-		MessageText(KRED
-				            "Cannot Display file information..."
-				            KRESET, 20, 20, 0);
-		MessageText("", 16, 21, 0);
+		MessageText(BRED "No File Loaded" KRESET, 16, 20, 0);
+		MessageText(KRED "Cannot Display file information..." KRESET, 20, 21, 0);
 		MessageText("", 16, 22, 0);
 		MessageText("", 16, 23, 0);
+		MessageText("", 16, 24, 0);
 	} else {
-		sprintf(TextLine, UWHT
-				"File = \"%s\""
-				KRESET, PlotFile);
-		MessageText(TextLine, 16, 19, 0);
+		sprintf(TextLine, UWHT "File = \"%s\"" KRESET, PlotFile);
+		MessageText(TextLine, 16, 20, 0);
 		sprintf(TextLine, "Scale       = %0.4f", scale);
-		MessageText(TextLine, 20, 20, 0);
-		sprintf(TextLine, "Width       = %0.2f cm", (width * scale / 10.0 / StepsPermmX));
 		MessageText(TextLine, 20, 21, 0);
-		sprintf(TextLine, "Height      = %0.2f cm", (height * scale / 10.0 / StepsPermmX));
+		sprintf(TextLine, "Width       = %0.2f cm", (width * scale / 10.0 / StepsPermmX));
 		MessageText(TextLine, 20, 22, 0);
-		if (plotterMode == MODE_PLOT)
-			sprintf(TextLine, "File Mode   = "
-					BRED
-					"PLOT "
-					KRESET
-					"(Vector)");
-		if (plotterMode == MODE_PRINT)
-			sprintf(TextLine, "File Mode   = "
-					BBLU
-					"PRINT "
-					KRESET
-					"(Raster)");
+		sprintf(TextLine, "Height      = %0.2f cm", (height * scale / 10.0 / StepsPermmX));
 		MessageText(TextLine, 20, 23, 0);
+		if (plotterMode == MODE_PLOT)
+			sprintf(TextLine, "File Mode   = " BRED "PLOT " KRESET "(Vector)");
+		if (plotterMode == MODE_PRINT)
+			sprintf(TextLine, "File Mode   = " BBLU "PRINT " KRESET "(Raster)");
+		MessageText(TextLine, 20, 24, 0);
 	}
 
-	MessageText("#                                                                #", 1, 24, 1);
-	MessageText("##################################################################", 1, 25, 1);
+	MessageText("#                                                                #", 1, 25, 1);
+	MessageText("##################################################################", 1, 26, 1);
 
 
 }
@@ -253,9 +238,8 @@ char *PrintMenu_File(int StartRow, int selected) {
 	int Discard = 0;
 
 	clrscr(1, MessageY - 2);
-	MessageText(UWHT
-			            "-- Open File --"
-			            KRESET, 1, 1, 1);
+	MessageText(UWHT "-- CD ROM  Plotter v0.5 --" KRESET, 1, 1, 1);
+	MessageText(BWHT "-- Open File--" KRESET, 1, 2, 1);
 
 	strcpy(OpenDirName, PicturePath);
 
@@ -263,7 +247,7 @@ char *PrintMenu_File(int StartRow, int selected) {
 	pDIR = opendir(OpenDirName);
 	if (pDIR == NULL) {
 		sprintf(TextLine, "Could not open directory '%s'!", OpenDirName);
-		MessageText(TextLine, 1, 4, 1);
+		MessageText(TextLine, 1, 5, 1);
 		getch();
 		return ("noFiLE");
 	}
@@ -281,7 +265,7 @@ char *PrintMenu_File(int StartRow, int selected) {
 					else {
 						sprintf(TextLine, " %s ", pDirEnt->d_name);
 					}
-					MessageText(TextLine, 1, 3 + i, 0);
+					MessageText(TextLine, 1, 4 + i, 0);
 					i++;
 				}
 				Discard++;
@@ -320,19 +304,18 @@ void PrintMenu_Plot(char *FullFileName, long NumberOfLines, long CurrentLine, lo
 	ProcessSeconds = CurrentTime;
 
 	clrscr(1, MessageY - 2);
-	MessageText(UWHT
-			            "-- Plotting --"
-			            KRESET, 1, 1, 1);
+	MessageText(UWHT "-- CD ROM  Plotter v0.5 --" KRESET, 1, 1, 1);
+	MessageText(BWHT "-- Plotting --" KRESET, 1, 2, 1);
+
 
 	sprintf(TextLine, "File name: %s", FullFileName);
-	MessageText(TextLine, 10, 3, 0);
-	sprintf(TextLine, "Number of lines: %ld", NumberOfLines);
 	MessageText(TextLine, 10, 4, 0);
-	sprintf(TextLine, "Current Position(%ld): X = %ld, Y = %ld     ", CurrentLine, CurrentX, CurrentY);
+	sprintf(TextLine, "Number of lines: %ld", NumberOfLines);
 	MessageText(TextLine, 10, 5, 0);
-	sprintf(TextLine, "Process time: %02ld:%02ld:%02ld", ProcessHours, ProcessMinutes, ProcessSeconds);
+	sprintf(TextLine, "Current Position(%ld): X = %ld, Y = %ld     ", CurrentLine, CurrentX, CurrentY);
 	MessageText(TextLine, 10, 6, 0);
-
+	sprintf(TextLine, "Process time: %02ld:%02ld:%02ld", ProcessHours, ProcessMinutes, ProcessSeconds);
+	MessageText(TextLine, 10, 7, 0);
 
 }
 //------------------------- PrintMenu_Plot ------------------------------

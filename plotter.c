@@ -949,6 +949,12 @@ int main(int argc, char **argv) {
 						digitalWrite(Y_STEPPER02, 0);
 						digitalWrite(Y_STEPPER03, 0);
 						digitalWrite(Y_STEPPER04, 0);
+
+						softPwmWrite(Z_SERVO, SERVOUP);
+						usleep(500000);
+						softPwmWrite(Z_SERVO, 0);
+
+						clrscr(1, MaxRows);
 						exit(0);
 					}
 				}
