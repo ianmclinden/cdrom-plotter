@@ -169,8 +169,8 @@ void PrintRow(char character, int y) {
 
 //+++++++++++++++++++++++++ ErrorText +++++++++++++++++++++++++++++
 void ErrorText(char *message) {
-	clrscr(MessageY + 2, MessageY + 2);
-	gotoxy(1, MessageY + 2);
+	clrscr(MessageY + 2, MessageY - 2);
+	gotoxy(1, MessageY - 2);
 	printf("Last error: %s", message);
 }
 //----------------------------- ErrorText ---------------------------
@@ -765,8 +765,7 @@ int main(int argc, char **argv) {
 			if (KeyHit == 'p') {
 
 				if (strcmp(FileName, "noFiLE") == 0) {
-					MessageText(KRED "> No File loaded" KRESET, 1, MessageY + 1, 0);
-					continue;
+					ErrorText(KRED "> No File loaded" KRESET);
 				}
 
 				if (strcmp(FileName, "noFiLE") != 0) {
