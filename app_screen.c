@@ -19,7 +19,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <wiringPi.h>
-#include "plotter.h"
+#include "consts.h"
 #include "app_screen.h"
 
 //+++++++++++++++++++++++ Start gotoxy ++++++++++++++++++++++++++

@@ -23,6 +23,7 @@
 #include <math.h>
 #include <wiringPi.h>
 #include <unistd.h>
+#include "consts.h"
 #include "app_screen.h"
 #include "plotter.h"
 
