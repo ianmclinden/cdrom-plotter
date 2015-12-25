@@ -21,14 +21,11 @@ CFLAGS= -O2 -fdiagnostics-color=always -g -Wall -I/usr/local/include -L/usr/loca
 
 all:	plotter
 
-plotter:	plotter.o app_screen.o
-	$(CC) $(CFLAGS) plotter.o app_screen.o -o plotter
+plotter:	plotter.o
+	$(CC) $(CFLAGS) plotter.o -o plotter
 
-plotter.o:	plotter.c plotter.h
+plotter.o:	plotter.c plotter.h app_screen.h
 	$(CC) $(CFLAGS) -c plotter.c -o plotter.o
-
-app_screen.o:	app_screen.c app_screen.h plotter.h
-	$(CC) $(CFLAGS) -c app_screen.c -o app_screen.o
 
 clean:
 	rm -Rf *.o *~ *.bak *.out *.dSYM plotter
