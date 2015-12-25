@@ -133,6 +133,27 @@ void MakeStepY(int direction, long stepPause) {
 	usleep(stepPause);
 }
 
+//++++++++++++++++++++++++++++++ MoveZ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+void MoveZ(int direction) { //1 for down 0 for up
+
+	if (direction == 1) {
+		MessageText("Lowering Pen", 1, MessageY - 2, 0);
+		softPwmWrite(Z_SERVO, SERVODOWN);
+		usleep(500000);
+		softPwmWrite(Z_SERVO, 0);
+		currentPlotDown = 1;
+		MessageText("(Pen Lowered)", 1, MessageY - 2, 0);
+	} else {
+		MessageText("Raising Pen", 1, MessageY - 2, 0);
+		softPwmWrite(Z_SERVO, SERVOUP);
+		usleep(500000);
+		softPwmWrite(Z_SERVO, 0);
+		currentPlotDown = 0;
+		MessageText("(Pen Raised)", 1, MessageY - 2, 0);
+	}
+
+}
+
 //++++++++++++++++++++++++++++++++++++++ CalculatePlotter ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int CalculatePlotter(long moveX, long moveY, long stepPause) {
 	char TextLine[1000] = "";
@@ -319,6 +340,7 @@ int main(int argc, char **argv) {
 	getcwd(PicturePath, 1000);
 	strcat(PicturePath, "/pictures");
 	printf("PicturePath=>%s<", PicturePath);
+	sleep(1);
 
 	if (wiringPiSetup() == -1) {
 		printf("Could not run wiringPiSetup!");
@@ -422,33 +444,20 @@ int main(int argc, char **argv) {
 			// Move Pen UP
 			if ((KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 53 && KeyCode[3] == 126 && KeyCode[4] == 0) ||
 			    (KeyHit == 'u')) {
-				MessageText("Raising Pen", 1, MessageY - 2, 0);
-				softPwmWrite(Z_SERVO, SERVOUP);
-				usleep(500000);
-				softPwmWrite(Z_SERVO, 0);
-				currentPlotDown = 0;
-				MessageText("(Pen Raised)", 1, MessageY - 2, 0);
+				MoveZ(0);
 			}
 
 			// Move Pen Down
 			if ((KeyCode[0] == 27 && KeyCode[1] == 91 && KeyCode[2] == 54 && KeyCode[3] == 126 && KeyCode[4] == 0) ||
 			    (KeyHit == 'd')) {
-				MessageText("Lowering Pen", 1, MessageY - 2, 0);
-				softPwmWrite(Z_SERVO, SERVODOWN);
-				usleep(500000);
-				softPwmWrite(Z_SERVO, 0);
-				currentPlotDown = 1;
-				MessageText("(Pen Lowered)", 1, MessageY - 2, 0);
+				MoveZ(1);
 			}
 
 
 			// Zero Axes
 			if (KeyHit == 48) { // 0
 				MessageText("Zeroing X,Y,Z", 1, MessageY - 2, 0);
-				softPwmWrite(Z_SERVO, SERVOUP);
-				usleep(500000);
-				softPwmWrite(Z_SERVO, 0);
-				currentPlotDown = 0;
+				MoveZ(0);
 
 				// TODO : move xy to 0,0
 			}
@@ -518,10 +527,7 @@ int main(int argc, char **argv) {
 						coordinatePlot = 0;
 						stopPlot = 0;
 						if (currentPlotDown == 1) {
-							softPwmWrite(Z_SERVO, SERVOUP);
-							currentPlotDown = 0;
-							usleep(500000);
-							softPwmWrite(Z_SERVO, 0);
+							MoveZ(0);
 						}
 
 						while (!(feof(PlotFile)) && stopPlot == 0) {
@@ -543,10 +549,7 @@ int main(int argc, char **argv) {
 								if (xNow2 > -1 && yNow2 > -1 && (xNow2 != xNow1 || yNow2 != yNow1)) {
 									stopPlot = CalculatePlotter(xNow2 - currentPlotX, yNow2 - currentPlotY, stepPause);
 									if (currentPlotDown == 0) {
-										softPwmWrite(Z_SERVO, SERVODOWN);
-										usleep(500000);
-										softPwmWrite(Z_SERVO, 0);
-										currentPlotDown = 1;
+										MoveZ(1)
 									}
 									currentPlotX = xNow2;
 									currentPlotY = yNow2;
@@ -567,10 +570,7 @@ int main(int argc, char **argv) {
 							}
 							if (strcmp(TextLine, "path") == 0) {
 								if (currentPlotDown == 1) {
-									softPwmWrite(Z_SERVO, SERVOUP);
-									usleep(500000);
-									softPwmWrite(Z_SERVO, 0);
-									currentPlotDown = 0;
+									MoveZ(0);
 								}
 								ReadState = 1;//path found
 							}
@@ -602,10 +602,7 @@ int main(int argc, char **argv) {
 								if (xNow2 > -1 && yNow2 > -1 && (xNow2 != xNow1 || yNow2 != yNow1)) {
 									stopPlot = CalculatePlotter(xNow2 - currentPlotX, yNow2 - currentPlotY, stepPause);
 									if (currentPlotDown == 0) {
-										softPwmWrite(Z_SERVO, SERVODOWN);
-										usleep(500000);
-										softPwmWrite(Z_SERVO, 0);
-										currentPlotDown = 1;
+										MoveZ(1);
 									}
 									currentPlotX = xNow2;
 									currentPlotY = yNow2;
@@ -619,10 +616,7 @@ int main(int argc, char **argv) {
 						}//while(!(feof(PlotFile)) && stopPlot == 0){
 						fclose(PlotFile);
 						if (currentPlotDown == 1) {
-							softPwmWrite(Z_SERVO, SERVOUP);
-							usleep(500000);
-							softPwmWrite(Z_SERVO, 0);
-							currentPlotDown = 0;
+							MoveZ(0);
 						}
 						PrintMenu_Plot(FullFileName, coordinateCount, coordinatePlot, 0, 0, PlotStartTime);
 						CalculatePlotter(-currentPlotX, -currentPlotY, stepPause);
@@ -686,26 +680,17 @@ int main(int argc, char **argv) {
 
 								if (PixelRed < 200 || PixelGreen < 200 || PixelBlue < 200) {
 									if (currentPlotDown == 0) {
-										softPwmWrite(Z_SERVO, SERVODOWN);
-										usleep(500000);
-										softPwmWrite(Z_SERVO, 0);
-										currentPlotDown = 1;
+										MoveZ(1);
 									}
 									if (PixelRedNext > 199 && PixelGreenNext > 199 && PixelBlueNext > 199) {
 										if (currentPlotDown == 1) {
-											softPwmWrite(Z_SERVO, SERVOUP);
-											usleep(500000);
-											softPwmWrite(Z_SERVO, 0);
-											currentPlotDown = 0;
+											MoveZ(0);
 										}
 									}
 								}
 								else {
 									if (currentPlotDown == 1) {
-										softPwmWrite(Z_SERVO, SERVOUP);
-										usleep(500000);
-										softPwmWrite(Z_SERVO, 0);
-										currentPlotDown = 0;
+										MoveZ(0);
 									}
 								}
 								if (ReverseMode == 0) {
@@ -730,19 +715,13 @@ int main(int argc, char **argv) {
 								}
 							}//while(NewLine == 0){
 							if (currentPlotDown == 1) {
-								softPwmWrite(Z_SERVO, SERVOUP);
-								usleep(500000);
-								softPwmWrite(Z_SERVO, 0);
-								currentPlotDown = 0;
+								MoveZ(0);
 							}
 							CalculatePlotter(0, -StepsPerPixelY, stepPause);
 						}//for(currentPlotY = 0; currentPlotY < PictureHeight + JetOffset1 + JetOffset2; currentPlotY++){
 						fclose(PlotFile);
 						if (currentPlotDown == 1) {
-							softPwmWrite(Z_SERVO, SERVOUP);
-							usleep(500000);
-							softPwmWrite(Z_SERVO, 0);
-							currentPlotDown = 0;
+							MoveZ(0);
 						}
 						if (ReverseMode == 1) {
 							CalculatePlotter(-StepsPerPixelX * PictureWidth, 0, stepPause);
@@ -947,9 +926,7 @@ int main(int argc, char **argv) {
 						digitalWrite(Y_STEPPER03, 0);
 						digitalWrite(Y_STEPPER04, 0);
 
-						softPwmWrite(Z_SERVO, SERVOUP);
-						usleep(500000);
-						softPwmWrite(Z_SERVO, 0);
+						MoveZ(0);
 
 						clrscr(1, MaxRows);
 						exit(0);
