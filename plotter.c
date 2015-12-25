@@ -542,10 +542,11 @@ int CalculatePlotter(long moveX, long moveY, long stepPause) {
 
 	return 0;
 }
-
 //-------------------------------------- CalculatePlotter --------------------------------------------------------
 
+
 // TODO : command line argment files
+// TODO : print / plot cancel from any key
 
 int main(int argc, char **argv) {
 
@@ -763,6 +764,11 @@ int main(int argc, char **argv) {
 			// Plot Key Hits
 			if (KeyHit == 'p') {
 
+				if (strcmp(FileName, "noFile") == 0) {
+					MessageText(KRED "> No File loaded" KRESET, 1, MessageY + 1, 0);
+					continue;
+				}
+
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if ((PlotFile = fopen(FullFileName, "rb")) == NULL) {
 						sprintf(TextLine, "Can't open file '%s'!\n", FullFileName);
@@ -771,12 +777,13 @@ int main(int argc, char **argv) {
 					}
 				}
 
-				MessageText(KRED "> 3 seconds until plotting starts ." KRESET, 1, 27, 0);
+				MessageText(KRED "> 3 seconds until printer starts ." KRESET, 1, MessageY + 1, 0);
 				sleep(1);
-				MessageText(KRED "> 2 seconds until plotting starts .." KRESET, 1, 27, 0);
+				MessageText(KRED "> 2 seconds until printer starts .." KRESET, 1, MessageY + 1, 0);
 				sleep(1);
-				MessageText(KRED "> 1 seconds until plotting starts ..." KRESET, 1, 27, 0);
+				MessageText(KRED "> 1 seconds until printer starts ..." KRESET, 1, MessageY + 1, 0);
 				sleep(1);
+				MessageText(KGRN "> Running" KRESET, 1, MessageY + 1, 0);
 
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if (plotterMode == MODE_PLOT) {
