@@ -791,6 +791,7 @@ int main(int argc, char **argv) {
 
 				if (strcmp(FileName, "noFiLE") != 0) {
 					if (plotterMode == MODE_PLOT) {
+						MessageText(KGRN "Printing: " KRESET "Press P to PAUSE or ESC to ABORT", MessageX, MessageY, 0);
 						xNow1 = -1;
 						xNow2 = -1;
 						yNow1 = -1;
@@ -809,6 +810,33 @@ int main(int argc, char **argv) {
 						}
 
 						while (!(feof(PlotFile)) && stopPlot == 0) {
+
+							SingleKey = 1;
+							KeyCode[0] = 0;
+							KeyCode[1] = 0;
+							KeyCode[2] = 0;
+							KeyCode[3] = 0;
+							KeyCode[4] = 0;
+							KeyHit = 0;
+							while (kbhit()) {
+								KeyHit = getch();
+								KeyCode[i] = KeyHit;
+								i++;
+								if (i == 5) {
+									i = 0;
+								}
+								if (i > 1) {
+									SingleKey = 0;
+								}
+							}
+							if (SingleKey == 0) {
+								KeyHit = 0;
+							}
+
+							if (KeyHit == 27) { // ABORT
+								ErrorText("Print Aborted!");
+								break;
+							}
 
 							fread(&a, 1, 1, PlotFile);
 							i = 0;
@@ -1152,9 +1180,8 @@ int main(int argc, char **argv) {
 						//getch();
 					}//if(plotterMode == MODE_PLOT){
 
-
-
 					if (plotterMode == MODE_PRINT) {//bitmap
+						// TODO : error catch here
 						fread(&FileInfo, 2, 1, PlotFile);
 						fread(&FileSize, 4, 1, PlotFile);
 						fread(&LongTemp, 4, 1, PlotFile);
