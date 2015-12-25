@@ -15,6 +15,24 @@
 #ifndef CDROM_PLOTTER_PLOTTER_H
 #define CDROM_PLOTTER_PLOTTER_H
 
+/* ---- Globals ------------------------------------------------------------------------------------------------------*/
+
+// Terminal GUI Variables
+int MaxRows = 24;
+int MaxCols = 80;
+int MessageX = 1;
+int MessageY = 24;
+unsigned char MoveBuffer[BUFFERSIZE];
+
+// Stepper Motor Drivers
+int StepX = 0;
+int StepY = 0;
+double StepsPermmX = 250.0 / 35.0;
+double StepsPermmY = 250.0 / 35.0;
+
+// Input Filepath
+char PicturePath[1000];
+
 /* ---- Color Constants ----------------------------------------------------------------------------------------------*/
 
 #define KRESET  "\x1B[0m"
