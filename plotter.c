@@ -22,6 +22,7 @@
 #include <dirent.h>
 #include <math.h>
 #include <wiringPi.h>
+#include <softPwm.h>
 #include <unistd.h>
 #include "app_screen.h"
 #include "plotter.h"

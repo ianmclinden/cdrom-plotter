@@ -33,6 +33,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <wiringPi.h>
+#include <softPwm.h>
 #include "plotter.h"
 
 //+++++++++++++++++++++++ Start gotoxy ++++++++++++++++++++++++++
